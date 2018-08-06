@@ -1,4 +1,6 @@
-﻿namespace OnePiece.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace OnePiece.Models
 {
     /// <summary>
     /// 果实
@@ -28,6 +30,6 @@
         /// <summary>
         /// 果实照片
         /// </summary>
-        public Image Image { get; set; }
+        public string ImagePath { get; set; }
     }
 }

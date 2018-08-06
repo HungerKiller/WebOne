@@ -19,6 +19,22 @@ namespace OnePiece.Models
         public string Name { get; set; }
 
         /// <summary>
+        /// 外号。不正规的称呼
+        /// </summary>
+        public string Nickname { get; set; }
+
+        // TODO 注意数据库中可以存的最大长度
+        /// <summary>
+        /// 描述
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// 悬赏金（单位：贝利）
+        /// </summary>
+        public float RewardMoney { get; set; }
+
+        /// <summary>
         /// 种族
         /// </summary>
         public Race Race { get; set; }
@@ -34,17 +50,6 @@ namespace OnePiece.Models
         public DateTime Birthday { get; set; }
 
         /// <summary>
-        /// 外号。不正规的称呼
-        /// </summary>
-        public string Nickname { get; set; }
-
-        // TODO 注意数据库中可以存的最大长度
-        /// <summary>
-        /// 描述
-        /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
         /// 所属势力
         /// </summary>
         public FeatureType FeatureType { get; set; }
@@ -55,9 +60,9 @@ namespace OnePiece.Models
         public Title Title { get; set; }
 
         /// <summary>
-        /// 悬赏金（单位：贝利）
+        /// 海贼团
         /// </summary>
-        public float RewardMoney { get; set; }
+        public PirateGroup PirateGroup { get; set; }
 
         /// <summary>
         /// 果实。一个人可以有多个果实
@@ -69,14 +74,10 @@ namespace OnePiece.Models
         /// </summary>
         public ICollection<Weapon> Weapons { get; set; }
 
-        /// <summary>
-        /// 海贼团
-        /// </summary>
-        public PirateGroup PirateGroup { get; set; }
-
+        //TODO
         /// <summary>
         /// 一个人可以有多张照片。第一张作为头像。
         /// </summary>
-        public ICollection<Image> Images { get; set; }
+        public string ImagePath { get; set; }
     }
 }

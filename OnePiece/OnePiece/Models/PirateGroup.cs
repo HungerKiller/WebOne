@@ -23,13 +23,13 @@ namespace OnePiece.Models
         public string Description { get; set; }
 
         /// <summary>
+        /// 海贼旗
+        /// </summary>
+        public string ImagePath { get; set; }
+
+        /// <summary>
         /// 船员。多个船员
         /// </summary>
         public ICollection<Person> Peoples { get; set; }
-
-        /// <summary>
-        /// 海贼旗
-        /// </summary>
-        public Image Flag { get; set; }
     }
 }

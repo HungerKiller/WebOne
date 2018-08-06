@@ -23,6 +23,6 @@
         /// <summary>
         /// 武器照片
         /// </summary>
-        public Image Image { get; set; }
+        public string ImagePath { get; set; }
     }
 }
