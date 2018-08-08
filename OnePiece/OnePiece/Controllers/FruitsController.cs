@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using OnePiece.Data;
 using OnePiece.Models;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,19 +32,22 @@ namespace OnePiece.Controllers
                 return NotFound();
             }
 
-            var fruit = await _context.Fruits
+            var fruit = await _context.Fruits.AsNoTracking()
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (fruit == null)
             {
                 return NotFound();
             }
-
+            // TODO Image?
             return View(fruit);
         }
 
         // GET: Fruits/Create
         public IActionResult Create()
         {
+            List<string> types = new List<string>(Enum.GetValues(typeof(FruitType)));
+            ViewData["Type"] = Enum.GetValues(typeof(FruitType));
+            ViewBag.Type = Enum.GetValues(typeof(FruitType));
             return View();
         }
 
