@@ -33,7 +33,10 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <button type="submit" value="Delete" class="btn btn-danger"><span class="glyphicon glyphicon-ok"></span> Delete</button>
+    </form>
+    <br/>
+    <form asp-action="Index">
+        <button class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span> Back to List</button>
     </form>
 </div>
