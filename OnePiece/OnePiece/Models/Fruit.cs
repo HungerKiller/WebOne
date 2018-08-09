@@ -12,6 +12,7 @@ namespace OnePiece.Models
         /// </summary>
         public int Id { get; set; }
 
+        [Required]
         /// <summary>
         /// 名字
         /// </summary>

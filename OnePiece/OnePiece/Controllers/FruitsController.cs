@@ -45,9 +45,9 @@ namespace OnePiece.Controllers
         // GET: Fruits/Create
         public IActionResult Create()
         {
-            List<string> types = new List<string>(Enum.GetValues(typeof(FruitType)));
-            ViewData["Type"] = Enum.GetValues(typeof(FruitType));
-            ViewBag.Type = Enum.GetValues(typeof(FruitType));
+            var types = Enum.GetValues(typeof(FruitType)).Cast<string>();
+            ViewData["Type"] = types;
+            ViewBag.Type = types;
             return View();
         }
 
