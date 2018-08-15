@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnePiece.Data;
@@ -67,29 +68,22 @@ namespace OnePiece.Controllers
             {
                 // Upload file
                 if (HttpContext.Request.Form.Files != null)
-                {                   
-                    var files = HttpContext.Request.Form.Files;
-                    foreach (var file in files)
+                {
+                    var file = HttpContext.Request.Form.Files.FirstOrDefault();
+                    if (file != null && file.Length > 0)
                     {
-                        if (file.Length > 0)
+                        // Check extension
+                        string extensionMsg = CheckExtension(file);
+                        if (!string.IsNullOrEmpty(extensionMsg))
                         {
-                            //Getting FileName
-                            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                            //fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                            // New file name
-                            string newFileName = Guid.NewGuid().ToString() + Path.GetExtension(fileName);
-                            string filePathDB = Path.Combine("images", newFileName);
-                            string filePath = Path.Combine(_environment.WebRootPath, filePathDB);
-                            using (FileStream fs = System.IO.File.Create(filePath))
-                            {
-                                await file.CopyToAsync(fs);
-                                fs.Flush();
-                                fruit.ImagePath = filePathDB;
-                            }
+                            ViewBag.WrongExtension = extensionMsg;
+                            return View(fruit);
                         }
+                        // Upload file
+                        fruit.ImagePath = await UploadFile(file);
                     }
                 }
-
+                // Save DB
                 _context.Add(fruit);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -118,7 +112,7 @@ namespace OnePiece.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Type,Description")] Fruit fruit)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Type,Description,ImagePath")] Fruit fruit)
         {
             if (id != fruit.Id)
             {
@@ -127,11 +121,30 @@ namespace OnePiece.Controllers
 
             if (ModelState.IsValid)
             {
+                // Upload file
+                if (HttpContext.Request.Form.Files != null)
+                {
+                    var file = HttpContext.Request.Form.Files.FirstOrDefault();
+                    if (file != null && file.Length > 0)
+                    {
+                        // Check extension
+                        string extensionMsg = CheckExtension(file);
+                        if (!string.IsNullOrEmpty(extensionMsg))
+                        {
+                            ViewBag.WrongExtension = extensionMsg;
+                            return View(fruit);
+                        }
+                        // Remove old image
+                        string filePath = Path.Combine(_environment.WebRootPath, fruit.ImagePath);
+                        if (System.IO.File.Exists(filePath))
+                            System.IO.File.Delete(filePath);
+                        // Upload new image
+                        fruit.ImagePath = await UploadFile(file);
+                    }
+                }
+                // Update DB
                 try
                 {
-                    //TODO delete old image
-                    //var f = await _context.Fruits.AsNoTracking().SingleOrDefaultAsync(m => m.Id == fruit.Id);
-
                     _context.Update(fruit);
                     await _context.SaveChangesAsync();
                 }
@@ -184,5 +197,33 @@ namespace OnePiece.Controllers
         {
             return _context.Fruits.Any(e => e.Id == id);
         }
+
+        #region Helper
+
+        private async Task<string> UploadFile(IFormFile file)
+        {
+            // New file name
+            string newFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            string filePathDB = Path.Combine("images", newFileName);
+            string filePath = Path.Combine(_environment.WebRootPath, filePathDB);
+            using (FileStream fs = System.IO.File.Create(filePath))
+            {
+                await file.CopyToAsync(fs);
+                fs.Flush();
+            }
+            return filePathDB;
+        }
+
+        private string CheckExtension(IFormFile file)
+        {
+            List<string> validExtensions = new List<string>() { ".png", ".jpg", ".jpeg", ".gif"};
+            string extension = Path.GetExtension(file.FileName);
+            if (validExtensions.Contains(extension))
+                return null;
+            else
+                return $"File '{file.FileName}' was removed because of wrong extension";
+        }
+
+        #endregion Helper
     }
 }
