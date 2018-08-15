@@ -204,7 +204,7 @@ namespace OnePiece.Controllers
         {
             // New file name
             string newFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            string filePathDB = Path.Combine("images", newFileName);
+            string filePathDB = Path.Combine("clientimages", newFileName);
             string filePath = Path.Combine(_environment.WebRootPath, filePathDB);
             using (FileStream fs = System.IO.File.Create(filePath))
             {

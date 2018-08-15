@@ -30,12 +30,18 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
     </dl>
-    
+
+    <div>
+        @*直接获取Model的成员,需要使用大写的Model*@
+        <img src="~/@Model.ImagePath" />
+        <br />
+    </div>
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <button type="submit" value="Delete" class="btn btn-danger"><span class="glyphicon glyphicon-ok"></span> Delete</button>
     </form>
-    <br/>
+    <br />
     <form asp-action="Index">
         <button class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span> Back to List</button>
     </form>
