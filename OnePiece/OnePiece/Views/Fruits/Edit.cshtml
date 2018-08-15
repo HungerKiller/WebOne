@@ -9,7 +9,7 @@
 <h4>Fruit</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-xs-6 col-md-4">
         <form method="post" enctype="multipart/form-data" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
@@ -37,16 +37,16 @@
                 <input id="uploadfile" type="file" name="files" class="form-control" />
                 <p style="color:darkred">@ViewBag.WrongExtension</p>
             </div>
-            <div>
-                @*直接获取Model的成员,需要使用大写的Model*@
-                <img src="~/@Model.ImagePath" />
-                <br />
-            </div>
-            <img id="img" src="" alt="">
             <div class="form-group">
                 <button type="submit" value="Save" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Save</button>
             </div>
         </form>
+    </div>
+    <div class="col-xs-12 col-md-8">
+        <div style="text-align:center">
+            @*直接获取Model的成员,需要使用大写的Model*@
+            <img id="img" src="~/@Model.ImagePath" alt="" style="max-width:800px">
+        </div>
     </div>
 </div>
 
