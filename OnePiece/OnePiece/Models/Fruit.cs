@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnePiece.Models
 {
@@ -12,6 +13,7 @@ namespace OnePiece.Models
         /// </summary>
         public int Id { get; set; }
 
+        [Remote(action: "NameExists", controller: "Fruits")]
         [Required]
         /// <summary>
         /// 名字

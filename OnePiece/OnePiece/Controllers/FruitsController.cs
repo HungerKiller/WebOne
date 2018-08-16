@@ -225,5 +225,15 @@ namespace OnePiece.Controllers
         }
 
         #endregion Helper
+
+        [AcceptVerbs("Get","Post")]
+        public IActionResult NameExists(string name)
+        {
+            if (_context.Fruits.Any(f => f.Name.Equals(name)))
+            {
+                return Json($"Name {name} already exists.");
+            }
+            return Json(true);
+        }
     }
 }
