@@ -1,9 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - OnePiece</title>
+    <title>@Localizer["One Piece"]</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -47,11 +51,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">OnePiece</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@Localizer["One Piece"]</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Fruits" asp-action="Index">Fruits</a></li>
+                    <li><a asp-area="" asp-controller="Fruits" asp-action="Index"><i class="glyphicon glyphicon-apple"></i>@Localizer["Fruits"]</a></li>
+                    <li><a asp-area="" asp-controller="Fruits" asp-action="Index">@Localizer["Weapons"]</a></li>
+                    <li><a asp-area="" asp-controller="Fruits" asp-action="Index">@Localizer["Pirate Groups"]</a></li>
+                    <li><a asp-area="" asp-controller="Fruits" asp-action="Index">@Localizer["Persons"]</a></li>
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    @await Html.PartialAsync("_SelectLanguagePartial")
                 </ul>
             </div>
         </div>
@@ -60,7 +70,14 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - OnePiece</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; @System.DateTime.Now.Year - @Localizer["One Piece"]</p>
+                </div>
+                <div class="col-md-6 text-right">
+                    @await Html.PartialAsync("_SelectLanguagePartial")
+                </div>
+            </div>
         </footer>
     </div>
 
