@@ -1,12 +1,14 @@
 ﻿@model OnePiece.Models.Fruit
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = @Localizer["Edit"];
 }
 
-<h2>Edit</h2>
-
-<h4>Fruit</h4>
+<h2>@ViewData["Title"]</h2>
+<h4>@Localizer["Fruit"]</h4>
 <hr />
 <div class="row">
     <div class="col-xs-6 col-md-4">
@@ -33,12 +35,12 @@
                 @Html.HiddenFor(model => model.ImagePath)
             </div>
             <div class="form-group">
-                <label>Upload image</label>
+                <label>@Localizer["Upload image"]</label>
                 <input id="uploadfile" type="file" name="files" class="form-control" />
                 <p style="color:darkred">@ViewBag.WrongExtension</p>
             </div>
             <div class="form-group">
-                <button type="submit" value="Save" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Save</button>
+                <button type="submit" value="Save" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> @Localizer["Save"]</button>
             </div>
         </form>
     </div>
@@ -52,7 +54,7 @@
 
 <div>
     <form asp-action="Index">
-        <button class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span> Back to List</button>
+        <button class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span> @Localizer["Back to List"]</button>
     </form>
 </div>
 

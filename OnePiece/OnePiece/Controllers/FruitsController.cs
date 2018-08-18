@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Localization;
 
 namespace OnePiece.Controllers
 {
@@ -17,11 +18,13 @@ namespace OnePiece.Controllers
     {
         private readonly OnePieceContext _context;
         private readonly IHostingEnvironment _environment;
+        private readonly IStringLocalizer _localizer;
 
-        public FruitsController(OnePieceContext context, IHostingEnvironment IHostingEnvironment)
+        public FruitsController(OnePieceContext context, IHostingEnvironment IHostingEnvironment, IStringLocalizer<FruitsController> localizer)
         {
             _context = context;
             _environment = IHostingEnvironment;
+            _localizer = localizer;
         }
 
         // GET: Fruits
@@ -221,7 +224,7 @@ namespace OnePiece.Controllers
             if (validExtensions.Contains(extension))
                 return null;
             else
-                return $"File '{file.FileName}' was removed because of wrong extension";
+                return _localizer["File '{0}' was removed because of wrong extension.", file.Name];
         }
 
         #endregion Helper
@@ -231,7 +234,7 @@ namespace OnePiece.Controllers
         {
             if (_context.Fruits.Any(f => f.Name.Equals(name)))
             {
-                return Json($"Name {name} already exists.");
+                return Json(_localizer["Name '{0}' already exists.", name].Value);
             }
             return Json(true);
         }

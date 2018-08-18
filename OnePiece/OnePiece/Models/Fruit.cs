@@ -14,17 +14,20 @@ namespace OnePiece.Models
         public int Id { get; set; }
 
         [Remote(action: "NameExists", controller: "Fruits")]
-        [Required]
+        [Required(ErrorMessage = "The Name field is required.")]
+        [Display(Name = "Name")]
         /// <summary>
         /// 名字
         /// </summary>
         public string Name { get; set; }
 
+        [Display(Name = "Type")]
         /// <summary>
         /// 果实种类
         /// </summary>
         public FruitType Type { get; set; }
 
+        [Display(Name = "Description")]
         /// <summary>
         /// 描述
         /// </summary>

@@ -1,12 +1,14 @@
 ﻿@model OnePiece.Models.Fruit
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = @Localizer["Create"];
 }
 
-<h2>Create</h2>
-
-<h4>Fruit</h4>
+<h2>@ViewData["Title"]</h2>
+<h4>@Localizer["Fruit"]</h4>
 <hr />
 <div class="row">
     <div class="col-xs-6 col-md-4">
@@ -28,14 +30,14 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label>Upload image</label>
+                <label>@Localizer["Upload image"]</label>
                 <input id="uploadfile" type="file" name="files" class="form-control" />
                 <p style="color:darkred">@ViewBag.WrongExtension</p>
             </div>
             <div class="form-group">
                 @*<input type="submit" value="Create" class="btn btn-default" />*@
                 @*用button来代替input，可以插入使用glyphicon*@
-                <button type="submit" value="Create" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Create</button>
+                <button type="submit" value="Create" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> @Localizer["Create"]</button>
             </div>
         </form>
     </div>
@@ -50,7 +52,7 @@
     @*<a asp-action="Index">Back to List</a>*@
     @*用from+button来代替a，可以插入使用glyphicon以及button的class*@
     <form asp-action="Index">
-        <button class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span> Back to List</button>
+        <button class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span> @Localizer["Back to List"]</button>
     </form>
 </div>
 

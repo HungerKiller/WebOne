@@ -1,11 +1,14 @@
 ﻿@model OnePiece.Models.Fruit
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = @Localizer["Details"];
 }
 
-<h2>Details</h2>
-<h4>Fruit</h4>
+<h2>@ViewData["Title"]</h2>
+<h4>@Localizer["Fruit"]</h4>
 <hr />
 
 <div class="row">
@@ -23,10 +26,6 @@
                 <td style="font-weight:bold">@Html.DisplayNameFor(model => model.Description)</td>
                 <td>@Html.DisplayFor(model => model.Description)</td>
             </tr>
-            <tr>
-                <td style="font-weight:bold">@Html.DisplayNameFor(model => model.ImagePath)</td>
-                <td>@Html.DisplayFor(model => model.ImagePath)</td>
-            </tr>
         </table>
     </div>
     <div class="col-xs-12 col-md-8">
@@ -41,10 +40,10 @@
     @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>*@
     @*用from+button来代替a，如果要传递参数，例如id，一定要制定form的method，否则不会调用Controller里的Edit方法*@
     <form asp-action="Edit" method="get" asp-route-id="@Model.Id">
-        <button class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+        <button class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> @Localizer["Edit"]</button>
     </form>
     <br />
     <form asp-action="Index">
-        <button class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span> Back to List</button>
+        <button class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span> @Localizer["Back to List"]</button>
     </form>
 </div>
