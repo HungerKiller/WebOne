@@ -145,9 +145,12 @@ namespace OnePiece.Controllers
                             return View(fruit);
                         }
                         // Remove old image
-                        string filePath = Path.Combine(_environment.WebRootPath, fruit.ImagePath);
-                        if (System.IO.File.Exists(filePath))
-                            System.IO.File.Delete(filePath);
+                        if (fruit.ImagePath != null)
+                        {
+                            string filePath = Path.Combine(_environment.WebRootPath, fruit.ImagePath);
+                            if (System.IO.File.Exists(filePath))
+                                System.IO.File.Delete(filePath);
+                        }
                         // Upload new image
                         fruit.ImagePath = await UploadFile(file);
                     }
