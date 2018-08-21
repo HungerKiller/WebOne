@@ -13,7 +13,7 @@ namespace OnePiece.Models
         /// </summary>
         public int Id { get; set; }
 
-        [Remote(action: "NameExists", controller: "Fruits")]
+        //[Remote(action: "NameExists", controller: "Fruits")]
         [Required(ErrorMessage = "The Name field is required.")]
         [Display(Name = "Name")]
         /// <summary>

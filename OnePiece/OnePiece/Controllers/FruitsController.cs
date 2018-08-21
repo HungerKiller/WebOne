@@ -2,15 +2,14 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using OnePiece.Data;
 using OnePiece.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Localization;
 
 namespace OnePiece.Controllers
 {
@@ -47,16 +46,13 @@ namespace OnePiece.Controllers
             {
                 return NotFound();
             }
-            // TODO Image?
+
             return View(fruit);
         }
 
         // GET: Fruits/Create
         public IActionResult Create()
         {
-            var types = Enum.GetValues(typeof(FruitType)).Cast<string>();
-            ViewData["Type"] = types;
-            ViewBag.Type = types;
             return View();
         }
 
@@ -67,6 +63,11 @@ namespace OnePiece.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Type,Description")] Fruit fruit)
         {
+            if (_context.Fruits.Any(f => f.Name == fruit.Name))
+            {
+                ViewBag.NameExists = _localizer["Name '{0}' already exists.", fruit.Name];
+                return View(fruit);
+            }
             if (ModelState.IsValid)
             {
                 // Upload file
@@ -120,6 +121,12 @@ namespace OnePiece.Controllers
             if (id != fruit.Id)
             {
                 return NotFound();
+            }
+
+            if (_context.Fruits.Any(f => f.Name == fruit.Name && f.Id != fruit.Id))
+            {
+                ViewBag.NameExists = _localizer["Name '{0}' already exists.", fruit.Name];
+                return View(fruit);
             }
 
             if (ModelState.IsValid)
@@ -229,6 +236,8 @@ namespace OnePiece.Controllers
 
         #endregion Helper
 
+        // 检查名字是否已存在。更新时可能名字没有改，所以肯定存在它本身。所以不能用remote validation。
+        // 暂时采用发送请求，服务器端判断，再返回的方式
         [AcceptVerbs("Get","Post")]
         public IActionResult NameExists(string name)
         {
