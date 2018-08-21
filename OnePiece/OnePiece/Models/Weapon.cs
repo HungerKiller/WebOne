@@ -1,4 +1,7 @@
-﻿namespace OnePiece.Models
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+
+namespace OnePiece.Models
 {
     /// <summary>
     /// 武器
@@ -10,11 +13,14 @@
         /// </summary>
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "The Name field is required.")]
+        [Display(Name = "Name")]
         /// <summary>
         /// 名字
         /// </summary>
         public string Name { get; set; }
 
+        [Display(Name = "Description")]
         /// <summary>
         /// 描述
         /// </summary>
