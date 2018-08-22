@@ -22,6 +22,17 @@
                 <td style="font-weight:bold">@Html.DisplayNameFor(model => model.Description)</td>
                 <td>@Html.DisplayFor(model => model.Description)</td>
             </tr>
+            <tr>
+                <td style="font-weight:bold">@Html.DisplayNameFor(model => model.Persons)</td>
+                <td>
+                    @{
+                        foreach (var person in Model.Persons)
+                        {
+                            @person.Name @:  @person.Description <br />
+                        }
+                    }
+                </td>
+            </tr>
         </table>
     </div>
     <div class="col-xs-12 col-md-8">

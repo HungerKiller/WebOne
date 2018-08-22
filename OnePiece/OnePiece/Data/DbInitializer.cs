@@ -44,21 +44,6 @@ namespace OnePiece.Data
                 }
                 context.SaveChanges();
             }
-            // PirateGroup
-            if (!context.PirateGroups.Any())
-            {
-                var pirateGroups = new PirateGroup[]
-                {
-                    new PirateGroup{Name="1",Description="des1",ImagePath="path1"},
-                    new PirateGroup{Name="2",Description="des1",ImagePath="path1"},
-                    new PirateGroup{Name="3",Description="des1",ImagePath="path1"},
-                };
-                foreach (PirateGroup group in pirateGroups)
-                {
-                    context.PirateGroups.Add(group);
-                }
-                context.SaveChanges();
-            }
             // Person
             if (!context.Persons.Any())
             {
@@ -72,6 +57,23 @@ namespace OnePiece.Data
                 {
                     context.Persons.Add(p);
                 }
+                context.SaveChanges();
+            }
+            // PirateGroup
+            if (!context.PirateGroups.Any())
+            {
+                var pirateGroups = new PirateGroup[]
+                {
+                    new PirateGroup{Name="1",Description="des1",ImagePath="path1"},
+                    new PirateGroup{Name="2",Description="des1",ImagePath="path1"},
+                    new PirateGroup{Name="3",Description="des1",ImagePath="path1"},
+                };
+                foreach (PirateGroup group in pirateGroups)
+                {
+                    context.PirateGroups.Add(group);
+                }
+                pirateGroups[0].Persons = new List<Person>();
+                pirateGroups[0].Persons.Add(context.Persons.First());
                 context.SaveChanges();
             }
         }
