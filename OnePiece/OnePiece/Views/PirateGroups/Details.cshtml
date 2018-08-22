@@ -1,0 +1,45 @@
+﻿@model OnePiece.Models.PirateGroup
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = @Localizer["Details"];
+}
+
+<h2>@ViewData["Title"]</h2>
+<h4>@Localizer["Pirate Group"]</h4>
+<hr />
+
+<div class="row">
+    <div class="col-xs-6 col-md-4">
+        <table class="table">
+            <tr>
+                <td style="font-weight:bold">@Html.DisplayNameFor(model => model.Name)</td>
+                <td>@Html.DisplayFor(model => model.Name)</td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold">@Html.DisplayNameFor(model => model.Description)</td>
+                <td>@Html.DisplayFor(model => model.Description)</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-xs-12 col-md-8">
+        <div style="text-align:center">
+            @*直接获取Model的成员,需要使用大写的Model*@
+            <img id="img" src="~/@Model.ImagePath" alt="" style="max-width:800px">
+        </div>
+    </div>
+</div>
+
+<div>
+    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>*@
+    @*用from+button来代替a，如果要传递参数，例如id，一定要制定form的method，否则不会调用Controller里的Edit方法*@
+    <form asp-action="Edit" method="get" asp-route-id="@Model.Id">
+        <button class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> @Localizer["Edit"]</button>
+    </form>
+    <br />
+    <form asp-action="Index">
+        <button class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span> @Localizer["Back to List"]</button>
+    </form>
+</div>

@@ -13,26 +13,26 @@ using System.Threading.Tasks;
 
 namespace OnePiece.Controllers
 {
-    public class WeaponsController : Controller
+    public class PirateGroupsController : Controller
     {
         private readonly OnePieceContext _context;
         private readonly IHostingEnvironment _environment;
         private readonly IStringLocalizer _localizer;
 
-        public WeaponsController(OnePieceContext context, IHostingEnvironment IHostingEnvironment, IStringLocalizer<WeaponsController> localizer)
+        public PirateGroupsController(OnePieceContext context, IHostingEnvironment IHostingEnvironment, IStringLocalizer<PirateGroupsController> localizer)
         {
             _context = context;
             _environment = IHostingEnvironment;
             _localizer = localizer;
         }
 
-        // GET: Weapons
+        // GET: PirateGroups
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Weapons.ToListAsync());
+            return View(await _context.PirateGroups.ToListAsync());
         }
 
-        // GET: Weapons/Details/5
+        // GET: PirateGroups/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,33 +40,33 @@ namespace OnePiece.Controllers
                 return NotFound();
             }
 
-            var weapon = await _context.Weapons
+            var pirateGroup = await _context.PirateGroups
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (weapon == null)
+            if (pirateGroup == null)
             {
                 return NotFound();
             }
 
-            return View(weapon);
+            return View(pirateGroup);
         }
 
-        // GET: Weapons/Create
+        // GET: PirateGroups/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Weapons/Create
+        // POST: PirateGroups/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,ImagePath")] Weapon weapon)
+        public async Task<IActionResult> Create([Bind("Name,Description,ImagePath")] PirateGroup pirateGroup)
         {
-            if (_context.Weapons.Any(w => w.Name == weapon.Name))
+            if (_context.PirateGroups.Any(group => group.Name == pirateGroup.Name))
             {
-                ViewBag.NameExists = _localizer["Name '{0}' already exists.", weapon.Name];
-                return View(weapon);
+                ViewBag.NameExists = _localizer["Name '{0}' already exists.", pirateGroup.Name];
+                return View(pirateGroup);
             }
             if (ModelState.IsValid)
             {
@@ -81,21 +81,21 @@ namespace OnePiece.Controllers
                         if (!string.IsNullOrEmpty(extensionMsg))
                         {
                             ViewBag.WrongExtension = extensionMsg;
-                            return View(weapon);
+                            return View(pirateGroup);
                         }
                         // Upload file
-                        weapon.ImagePath = await UploadFile(file);
+                        pirateGroup.ImagePath = await UploadFile(file);
                     }
                 }
                 // Save DB
-                _context.Add(weapon);
+                _context.Add(pirateGroup);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(weapon);
+            return View(pirateGroup);
         }
 
-        // GET: Weapons/Edit/5
+        // GET: PirateGroups/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -103,30 +103,30 @@ namespace OnePiece.Controllers
                 return NotFound();
             }
 
-            var weapon = await _context.Weapons.SingleOrDefaultAsync(m => m.Id == id);
-            if (weapon == null)
+            var pirateGroup = await _context.PirateGroups.SingleOrDefaultAsync(m => m.Id == id);
+            if (pirateGroup == null)
             {
                 return NotFound();
             }
-            return View(weapon);
+            return View(pirateGroup);
         }
 
-        // POST: Weapons/Edit/5
+        // POST: PirateGroups/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,ImagePath")] Weapon weapon)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,ImagePath")] PirateGroup pirateGroup)
         {
-            if (id != weapon.Id)
+            if (id != pirateGroup.Id)
             {
                 return NotFound();
             }
 
-            if (_context.Weapons.Any(w => w.Name == weapon.Name && w.Id != weapon.Id))
+            if (_context.PirateGroups.Any(group => group.Name == pirateGroup.Name && group.Id != pirateGroup.Id))
             {
-                ViewBag.NameExists = _localizer["Name '{0}' already exists.", weapon.Name];
-                return View(weapon);
+                ViewBag.NameExists = _localizer["Name '{0}' already exists.", pirateGroup.Name];
+                return View(pirateGroup);
             }
 
             if (ModelState.IsValid)
@@ -142,28 +142,28 @@ namespace OnePiece.Controllers
                         if (!string.IsNullOrEmpty(extensionMsg))
                         {
                             ViewBag.WrongExtension = extensionMsg;
-                            return View(weapon);
+                            return View(pirateGroup);
                         }
                         // Remove old image
-                        if (weapon.ImagePath != null)
+                        if (pirateGroup.ImagePath != null)
                         {
-                            string filePath = Path.Combine(_environment.WebRootPath, weapon.ImagePath);
+                            string filePath = Path.Combine(_environment.WebRootPath, pirateGroup.ImagePath);
                             if (System.IO.File.Exists(filePath))
                                 System.IO.File.Delete(filePath);
                         }
                         // Upload new image
-                        weapon.ImagePath = await UploadFile(file);
+                        pirateGroup.ImagePath = await UploadFile(file);
                     }
                 }
                 // Update DB
                 try
                 {
-                    _context.Update(weapon);
+                    _context.Update(pirateGroup);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!WeaponExists(weapon.Id))
+                    if (!PirateGroupExists(pirateGroup.Id))
                     {
                         return NotFound();
                     }
@@ -174,10 +174,10 @@ namespace OnePiece.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(weapon);
+            return View(pirateGroup);
         }
 
-        // GET: Weapons/Delete/5
+        // GET: PirateGroups/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -185,30 +185,30 @@ namespace OnePiece.Controllers
                 return NotFound();
             }
 
-            var weapon = await _context.Weapons
+            var pirateGroup = await _context.PirateGroups
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (weapon == null)
+            if (pirateGroup == null)
             {
                 return NotFound();
             }
 
-            return View(weapon);
+            return View(pirateGroup);
         }
 
-        // POST: Weapons/Delete/5
+        // POST: PirateGroups/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var weapon = await _context.Weapons.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Weapons.Remove(weapon);
+            var pirateGroup = await _context.PirateGroups.SingleOrDefaultAsync(m => m.Id == id);
+            _context.PirateGroups.Remove(pirateGroup);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool WeaponExists(int id)
+        private bool PirateGroupExists(int id)
         {
-            return _context.Weapons.Any(e => e.Id == id);
+            return _context.PirateGroups.Any(e => e.Id == id);
         }
 
         #region Helper
