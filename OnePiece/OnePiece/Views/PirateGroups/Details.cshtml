@@ -25,12 +25,17 @@
             <tr>
                 <td style="font-weight:bold">@Html.DisplayNameFor(model => model.Persons)</td>
                 <td>
-                    @{
-                        foreach (var person in Model.Persons)
-                        {
-                            @person.Name @:  @person.Description <br />
+                    <ul>
+                        @{
+                            List<OnePiece.ViewModels.AssignedPerson> persons = ViewBag.Persons;
+                            foreach (var person in persons)
+                            {
+                                @:<li>
+                                    <a asp-controller="Persons" asp-action="Details" asp-route-id="@person.PersonID"> @person.Name</a>
+                                @:</li>
+                            }
                         }
-                    }
+                    </ul>
                 </td>
             </tr>
         </table>

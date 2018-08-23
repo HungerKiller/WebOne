@@ -31,6 +31,27 @@
                 <p style="color:darkred">@ViewBag.WrongExtension</p>
             </div>
             <div class="form-group">
+                <label>@Localizer["Choose persons"]</label>
+                <table class="table">
+                    <tr>
+                        @{
+                            int cnt = 0;
+                            List<OnePiece.ViewModels.AssignedPerson> persons = ViewBag.Persons;
+                            foreach (var person in persons)
+                            {
+                                if (cnt++ % 4 == 0)
+                                {
+                                @:</tr><tr>
+                                }
+                                @:<td>
+                                    <input type="checkbox" name="selectedPersons" value="@person.PersonID" @(Html.Raw(person.Assigned ? "checked=\"checked\"" : "")) />@person.Name
+                                @:</td>
+                            }
+                        }
+                    </tr>
+                </table>
+            </div>
+            <div class="form-group">
                 @*<input type="submit" value="Create" class="btn btn-default" />*@
                 @*用button来代替input，可以插入使用glyphicon*@
                 <button type="submit" value="Create" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> @Localizer["Create"]</button>

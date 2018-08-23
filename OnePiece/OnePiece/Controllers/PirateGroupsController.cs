@@ -42,19 +42,23 @@ namespace OnePiece.Controllers
                 return NotFound();
             }
 
-            var pirateGroup = await _context.PirateGroups.Include(group => group.Persons)
+            var pirateGroup = await _context.PirateGroups.AsNoTracking().Include(group => group.Persons)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (pirateGroup == null)
             {
                 return NotFound();
             }
-
+            PopulateAssignedPerson(pirateGroup, true);
             return View(pirateGroup);
         }
 
         // GET: PirateGroups/Create
         public IActionResult Create()
         {
+            // 初始化一个空的group，且group中的list也要new。只是为了满足PopulateAssignedPerson函数的要求。
+            PirateGroup group = new PirateGroup();
+            group.Persons = new List<Person>();
+            PopulateAssignedPerson(group);
             return View();
         }
 
@@ -63,7 +67,7 @@ namespace OnePiece.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,ImagePath")] PirateGroup pirateGroup)
+        public async Task<IActionResult> Create([Bind("Name,Description,ImagePath")] PirateGroup pirateGroup, string[] selectedPersons)
         {
             if (_context.PirateGroups.Any(group => group.Name == pirateGroup.Name))
             {
@@ -89,11 +93,23 @@ namespace OnePiece.Controllers
                         pirateGroup.ImagePath = await UploadFile(file);
                     }
                 }
+
+                // Update persons
+                pirateGroup.Persons = new List<Person>();
+                foreach (var personIdStr in selectedPersons)
+                {
+                    int personId = int.Parse(personIdStr);
+                    var person = _context.Persons.SingleOrDefault(p => p.Id == personId);
+                    pirateGroup.Persons.Add(person);
+                    person.PirateGroup = pirateGroup;
+                }
+
                 // Save DB
                 _context.Add(pirateGroup);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            PopulateAssignedPerson(pirateGroup);
             return View(pirateGroup);
         }
 
@@ -105,7 +121,7 @@ namespace OnePiece.Controllers
                 return NotFound();
             }
 
-            var pirateGroup = await _context.PirateGroups.Include(group => group.Persons).SingleOrDefaultAsync(m => m.Id == id);
+            var pirateGroup = await _context.PirateGroups.AsNoTracking().Include(group => group.Persons).SingleOrDefaultAsync(m => m.Id == id);
             if (pirateGroup == null)
             {
                 return NotFound();
@@ -125,7 +141,7 @@ namespace OnePiece.Controllers
             {
                 return NotFound();
             }
-
+            // Check if the name exists already
             if (_context.PirateGroups.Any(group => group.Name == pirateGroup.Name && group.Id != pirateGroup.Id))
             {
                 ViewBag.NameExists = _localizer["Name '{0}' already exists.", pirateGroup.Name];
@@ -159,17 +175,14 @@ namespace OnePiece.Controllers
                     }
                 }
                 // Update persons
-                pirateGroup.Persons = _context.PirateGroups.Include(g => g.Persons).SingleOrDefault(g => g.Id == pirateGroup.Id).Persons;
-
-                await TryUpdateModelAsync<PirateGroup>(pirateGroup, "", i => i.Name, i => i.Description, i => i.ImagePath);
-
-                //var group = _context.PirateGroups.Include(g => g.Persons).SingleOrDefault(g => g.Id == pirateGroup.Id);
-
-                UpdatePirateGourpPersons(selectedPersons, pirateGroup);
+                var pirateGroupToUpdate = await _context.PirateGroups.Include(g => g.Persons).SingleOrDefaultAsync(g => g.Id == id);
+                // 把当前的object，用controller创建来的object更新
+                await TryUpdateModelAsync<PirateGroup>(pirateGroupToUpdate, "", i => i.Name, i => i.Description, i => i.ImagePath);
+                UpdatePirateGourpPersons(selectedPersons, pirateGroupToUpdate);
                 // Update DB
                 try
                 {
-                    _context.Update(pirateGroup);
+                    _context.Update(pirateGroupToUpdate);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -248,7 +261,7 @@ namespace OnePiece.Controllers
                 return _localizer["File '{0}' was removed because of wrong extension.", file.Name];
         }
 
-        private void PopulateAssignedPerson(PirateGroup group)
+        private void PopulateAssignedPerson(PirateGroup group, bool onlyContain = false)
         {
             var allPersons = _context.Persons;
             var groupPersons = new HashSet<int>(group.Persons.Select(p => p.Id));
@@ -262,28 +275,30 @@ namespace OnePiece.Controllers
                     Assigned = groupPersons.Contains(person.Id)
                 });
             }
+            if (onlyContain)
+                viewModel = viewModel.Where(vm => vm.Assigned).ToList();
             ViewData["Persons"] = viewModel;
         }
 
-        private void UpdatePirateGourpPersons(string[] selectedPersons, PirateGroup groupToUpdate)
+        private void UpdatePirateGourpPersons(string[] selectedPersons, PirateGroup pirateGroupToUpdate)
         {
             var selectedPersonsHS = new HashSet<string>(selectedPersons);
-            var groupPersons = new HashSet<int>(groupToUpdate.Persons.Select(p => p.Id));
+            var groupPersons = new HashSet<int>(pirateGroupToUpdate.Persons.Select(p => p.Id));
             foreach (var person in _context.Persons)
             {
                 if (selectedPersonsHS.Contains(person.Id.ToString())) // 本次选中这个Person
                 {
                     if (!groupPersons.Contains(person.Id)) // 并且这个Person之前不在Group中
                     {
-                        groupToUpdate.Persons.Add(person); // 则添加Person到Group
-                        person.PirateGroup = groupToUpdate;
+                        pirateGroupToUpdate.Persons.Add(person); // 则添加Person到Group
+                        person.PirateGroup = pirateGroupToUpdate;
                     }
                 }
                 else // 本次没有选中这个Person
                 {
                     if (groupPersons.Contains(person.Id)) // 并且这个Person之前属于Group
                     {
-                        groupToUpdate.Persons.Remove(person); // 则从Group中删除Person
+                        pirateGroupToUpdate.Persons.Remove(person); // 则从Group中删除Person
                         person.PirateGroup = null;
                     }
                 }
