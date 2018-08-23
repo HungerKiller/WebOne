@@ -31,7 +31,7 @@ namespace OnePiece.Controllers
         // GET: PirateGroups
         public async Task<IActionResult> Index()
         {
-            return View(await _context.PirateGroups.ToListAsync());
+            return View(await _context.PirateGroups.AsNoTracking().ToListAsync());
         }
 
         // GET: PirateGroups/Details/5
@@ -72,28 +72,17 @@ namespace OnePiece.Controllers
             if (_context.PirateGroups.Any(group => group.Name == pirateGroup.Name))
             {
                 ViewBag.NameExists = _localizer["Name '{0}' already exists.", pirateGroup.Name];
+                PopulateAssignedPerson(pirateGroup, selectedPersons);
                 return View(pirateGroup);
             }
             if (ModelState.IsValid)
             {
-                // Upload file
-                if (HttpContext.Request.Form.Files != null)
+                // Try to upload file
+                if (!(await TryUploadFile(pirateGroup)))
                 {
-                    var file = HttpContext.Request.Form.Files.FirstOrDefault();
-                    if (file != null && file.Length > 0)
-                    {
-                        // Check extension
-                        string extensionMsg = CheckExtension(file);
-                        if (!string.IsNullOrEmpty(extensionMsg))
-                        {
-                            ViewBag.WrongExtension = extensionMsg;
-                            return View(pirateGroup);
-                        }
-                        // Upload file
-                        pirateGroup.ImagePath = await UploadFile(file);
-                    }
+                    PopulateAssignedPerson(pirateGroup, selectedPersons);
+                    return View(pirateGroup);
                 }
-
                 // Update persons
                 pirateGroup.Persons = new List<Person>();
                 foreach (var personIdStr in selectedPersons)
@@ -103,7 +92,6 @@ namespace OnePiece.Controllers
                     pirateGroup.Persons.Add(person);
                     person.PirateGroup = pirateGroup;
                 }
-
                 // Save DB
                 _context.Add(pirateGroup);
                 await _context.SaveChangesAsync();
@@ -141,44 +129,27 @@ namespace OnePiece.Controllers
             {
                 return NotFound();
             }
+            var pirateGroupToUpdate = await _context.PirateGroups.Include(g => g.Persons).SingleOrDefaultAsync(g => g.Id == id);
             // Check if the name exists already
             if (_context.PirateGroups.Any(group => group.Name == pirateGroup.Name && group.Id != pirateGroup.Id))
             {
                 ViewBag.NameExists = _localizer["Name '{0}' already exists.", pirateGroup.Name];
+                PopulateAssignedPerson(pirateGroupToUpdate);
                 return View(pirateGroup);
             }
 
             if (ModelState.IsValid)
             {
-                // Upload file
-                if (HttpContext.Request.Form.Files != null)
-                {
-                    var file = HttpContext.Request.Form.Files.FirstOrDefault();
-                    if (file != null && file.Length > 0)
-                    {
-                        // Check extension
-                        string extensionMsg = CheckExtension(file);
-                        if (!string.IsNullOrEmpty(extensionMsg))
-                        {
-                            ViewBag.WrongExtension = extensionMsg;
-                            return View(pirateGroup);
-                        }
-                        // Remove old image
-                        if (pirateGroup.ImagePath != null)
-                        {
-                            string filePath = Path.Combine(_environment.WebRootPath, pirateGroup.ImagePath);
-                            if (System.IO.File.Exists(filePath))
-                                System.IO.File.Delete(filePath);
-                        }
-                        // Upload new image
-                        pirateGroup.ImagePath = await UploadFile(file);
-                    }
-                }
                 // Update persons
-                var pirateGroupToUpdate = await _context.PirateGroups.Include(g => g.Persons).SingleOrDefaultAsync(g => g.Id == id);
                 // 把当前的object，用controller创建来的object更新
                 await TryUpdateModelAsync<PirateGroup>(pirateGroupToUpdate, "", i => i.Name, i => i.Description, i => i.ImagePath);
                 UpdatePirateGourpPersons(selectedPersons, pirateGroupToUpdate);
+                // Try to upload file
+                if (!(await TryUploadFile(pirateGroupToUpdate)))
+                {
+                    PopulateAssignedPerson(pirateGroupToUpdate);
+                    return View(pirateGroupToUpdate);
+                }
                 // Update DB
                 try
                 {
@@ -209,8 +180,7 @@ namespace OnePiece.Controllers
                 return NotFound();
             }
 
-            var pirateGroup = await _context.PirateGroups
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var pirateGroup = await _context.PirateGroups.AsNoTracking().SingleOrDefaultAsync(m => m.Id == id);
             if (pirateGroup == null)
             {
                 return NotFound();
@@ -261,6 +231,38 @@ namespace OnePiece.Controllers
                 return _localizer["File '{0}' was removed because of wrong extension.", file.Name];
         }
 
+        /// <summary>
+        /// Try to upload file and update entity object
+        /// </summary>
+        /// <param name="group"></param>
+        /// <returns>true=No error; false=Has error</returns>
+        private async Task<bool> TryUploadFile(PirateGroup group)
+        {
+            // If no file to upload, return true
+            if (HttpContext.Request.Form.Files == null)
+                return true;
+            var file = HttpContext.Request.Form.Files.FirstOrDefault();
+            if (file == null || file.Length == 0)
+                return true;
+            // Check extension
+            string extensionMsg = CheckExtension(file);
+            if (!string.IsNullOrEmpty(extensionMsg))
+            {
+                ViewBag.WrongExtension = extensionMsg;
+                return false;
+            }
+            // Remove old image
+            if (group.ImagePath != null)
+            {
+                string filePath = Path.Combine(_environment.WebRootPath, group.ImagePath);
+                if (System.IO.File.Exists(filePath))
+                    System.IO.File.Delete(filePath);
+            }
+            // Upload new image
+            group.ImagePath = await UploadFile(file);
+            return true;
+        }
+
         private void PopulateAssignedPerson(PirateGroup group, bool onlyContain = false)
         {
             var allPersons = _context.Persons;
@@ -277,6 +279,23 @@ namespace OnePiece.Controllers
             }
             if (onlyContain)
                 viewModel = viewModel.Where(vm => vm.Assigned).ToList();
+            ViewData["Persons"] = viewModel;
+        }
+
+        private void PopulateAssignedPerson(PirateGroup group, string[] selectedPersons)
+        {
+            var allPersons = _context.Persons;
+            
+            var viewModel = new List<AssignedPerson>();
+            foreach (var person in allPersons)
+            {
+                viewModel.Add(new AssignedPerson
+                {
+                    PersonID = person.Id,
+                    Name = person.Name,
+                    Assigned = selectedPersons.ToList().Contains(person.Id.ToString())
+                });
+            }
             ViewData["Persons"] = viewModel;
         }
 

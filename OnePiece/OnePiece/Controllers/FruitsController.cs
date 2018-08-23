@@ -29,7 +29,7 @@ namespace OnePiece.Controllers
         // GET: Fruits
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Fruits.ToListAsync());
+            return View(await _context.Fruits.AsNoTracking().ToListAsync());
         }
 
         // GET: Fruits/Details/5
@@ -40,8 +40,7 @@ namespace OnePiece.Controllers
                 return NotFound();
             }
 
-            var fruit = await _context.Fruits.AsNoTracking()
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var fruit = await _context.Fruits.AsNoTracking().SingleOrDefaultAsync(m => m.Id == id);
             if (fruit == null)
             {
                 return NotFound();
@@ -63,30 +62,18 @@ namespace OnePiece.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Type,Description")] Fruit fruit)
         {
+            // Check if name already exists
             if (_context.Fruits.Any(f => f.Name == fruit.Name))
             {
                 ViewBag.NameExists = _localizer["Name '{0}' already exists.", fruit.Name];
                 return View(fruit);
             }
+
             if (ModelState.IsValid)
             {
-                // Upload file
-                if (HttpContext.Request.Form.Files != null)
-                {
-                    var file = HttpContext.Request.Form.Files.FirstOrDefault();
-                    if (file != null && file.Length > 0)
-                    {
-                        // Check extension
-                        string extensionMsg = CheckExtension(file);
-                        if (!string.IsNullOrEmpty(extensionMsg))
-                        {
-                            ViewBag.WrongExtension = extensionMsg;
-                            return View(fruit);
-                        }
-                        // Upload file
-                        fruit.ImagePath = await UploadFile(file);
-                    }
-                }
+                // Try to upload file
+                if (!(await TryUploadFile(fruit)))
+                    return View(fruit);
                 // Save DB
                 _context.Add(fruit);
                 await _context.SaveChangesAsync();
@@ -103,7 +90,7 @@ namespace OnePiece.Controllers
                 return NotFound();
             }
 
-            var fruit = await _context.Fruits.SingleOrDefaultAsync(m => m.Id == id);
+            var fruit = await _context.Fruits.AsNoTracking().SingleOrDefaultAsync(m => m.Id == id);
             if (fruit == null)
             {
                 return NotFound();
@@ -122,7 +109,7 @@ namespace OnePiece.Controllers
             {
                 return NotFound();
             }
-
+            // Check if name already exists
             if (_context.Fruits.Any(f => f.Name == fruit.Name && f.Id != fruit.Id))
             {
                 ViewBag.NameExists = _localizer["Name '{0}' already exists.", fruit.Name];
@@ -131,30 +118,9 @@ namespace OnePiece.Controllers
 
             if (ModelState.IsValid)
             {
-                // Upload file
-                if (HttpContext.Request.Form.Files != null)
-                {
-                    var file = HttpContext.Request.Form.Files.FirstOrDefault();
-                    if (file != null && file.Length > 0)
-                    {
-                        // Check extension
-                        string extensionMsg = CheckExtension(file);
-                        if (!string.IsNullOrEmpty(extensionMsg))
-                        {
-                            ViewBag.WrongExtension = extensionMsg;
-                            return View(fruit);
-                        }
-                        // Remove old image
-                        if (fruit.ImagePath != null)
-                        {
-                            string filePath = Path.Combine(_environment.WebRootPath, fruit.ImagePath);
-                            if (System.IO.File.Exists(filePath))
-                                System.IO.File.Delete(filePath);
-                        }
-                        // Upload new image
-                        fruit.ImagePath = await UploadFile(file);
-                    }
-                }
+                // Try to upload file
+                if (!(await TryUploadFile(fruit)))
+                    return View(fruit);
                 // Update DB
                 try
                 {
@@ -185,8 +151,7 @@ namespace OnePiece.Controllers
                 return NotFound();
             }
 
-            var fruit = await _context.Fruits
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var fruit = await _context.Fruits.AsNoTracking().SingleOrDefaultAsync(m => m.Id == id);
             if (fruit == null)
             {
                 return NotFound();
@@ -229,12 +194,44 @@ namespace OnePiece.Controllers
 
         private string CheckExtension(IFormFile file)
         {
-            List<string> validExtensions = new List<string>() { ".png", ".jpg", ".jpeg", ".gif"};
+            List<string> validExtensions = new List<string>() { ".png", ".jpg", ".jpeg", ".gif" };
             string extension = Path.GetExtension(file.FileName);
             if (validExtensions.Contains(extension))
                 return null;
             else
                 return _localizer["File '{0}' was removed because of wrong extension.", file.Name];
+        }
+
+        /// <summary>
+        /// Try to upload file and update entity object
+        /// </summary>
+        /// <param name="fruit"></param>
+        /// <returns>true=No error; false=Has error</returns>
+        private async Task<bool> TryUploadFile(Fruit fruit)
+        {
+            // If no file to upload, return true
+            if (HttpContext.Request.Form.Files == null)
+                return true;
+            var file = HttpContext.Request.Form.Files.FirstOrDefault();
+            if (file == null || file.Length == 0)
+                return true;
+            // Check extension
+            string extensionMsg = CheckExtension(file);
+            if (!string.IsNullOrEmpty(extensionMsg))
+            {
+                ViewBag.WrongExtension = extensionMsg;
+                return false;
+            }
+            // Remove old image
+            if (fruit.ImagePath != null)
+            {
+                string filePath = Path.Combine(_environment.WebRootPath, fruit.ImagePath);
+                if (System.IO.File.Exists(filePath))
+                    System.IO.File.Delete(filePath);
+            }
+            // Upload new image
+            fruit.ImagePath = await UploadFile(file);
+            return true;
         }
 
         #endregion Helper

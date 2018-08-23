@@ -29,7 +29,7 @@ namespace OnePiece.Controllers
         // GET: Weapons
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Weapons.ToListAsync());
+            return View(await _context.Weapons.AsNoTracking().ToListAsync());
         }
 
         // GET: Weapons/Details/5
@@ -40,8 +40,7 @@ namespace OnePiece.Controllers
                 return NotFound();
             }
 
-            var weapon = await _context.Weapons
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var weapon = await _context.Weapons.AsNoTracking().SingleOrDefaultAsync(m => m.Id == id);
             if (weapon == null)
             {
                 return NotFound();
@@ -70,23 +69,9 @@ namespace OnePiece.Controllers
             }
             if (ModelState.IsValid)
             {
-                // Upload file
-                if (HttpContext.Request.Form.Files != null)
-                {
-                    var file = HttpContext.Request.Form.Files.FirstOrDefault();
-                    if (file != null && file.Length > 0)
-                    {
-                        // Check extension
-                        string extensionMsg = CheckExtension(file);
-                        if (!string.IsNullOrEmpty(extensionMsg))
-                        {
-                            ViewBag.WrongExtension = extensionMsg;
-                            return View(weapon);
-                        }
-                        // Upload file
-                        weapon.ImagePath = await UploadFile(file);
-                    }
-                }
+                // Try to upload file
+                if (!(await TryUploadFile(weapon)))
+                    return View(weapon);
                 // Save DB
                 _context.Add(weapon);
                 await _context.SaveChangesAsync();
@@ -103,7 +88,7 @@ namespace OnePiece.Controllers
                 return NotFound();
             }
 
-            var weapon = await _context.Weapons.SingleOrDefaultAsync(m => m.Id == id);
+            var weapon = await _context.Weapons.AsNoTracking().SingleOrDefaultAsync(m => m.Id == id);
             if (weapon == null)
             {
                 return NotFound();
@@ -131,30 +116,9 @@ namespace OnePiece.Controllers
 
             if (ModelState.IsValid)
             {
-                // Upload file
-                if (HttpContext.Request.Form.Files != null)
-                {
-                    var file = HttpContext.Request.Form.Files.FirstOrDefault();
-                    if (file != null && file.Length > 0)
-                    {
-                        // Check extension
-                        string extensionMsg = CheckExtension(file);
-                        if (!string.IsNullOrEmpty(extensionMsg))
-                        {
-                            ViewBag.WrongExtension = extensionMsg;
-                            return View(weapon);
-                        }
-                        // Remove old image
-                        if (weapon.ImagePath != null)
-                        {
-                            string filePath = Path.Combine(_environment.WebRootPath, weapon.ImagePath);
-                            if (System.IO.File.Exists(filePath))
-                                System.IO.File.Delete(filePath);
-                        }
-                        // Upload new image
-                        weapon.ImagePath = await UploadFile(file);
-                    }
-                }
+                // Try to upload file
+                if (!(await TryUploadFile(weapon)))
+                    return View(weapon);
                 // Update DB
                 try
                 {
@@ -185,8 +149,7 @@ namespace OnePiece.Controllers
                 return NotFound();
             }
 
-            var weapon = await _context.Weapons
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var weapon = await _context.Weapons.AsNoTracking().SingleOrDefaultAsync(m => m.Id == id);
             if (weapon == null)
             {
                 return NotFound();
@@ -235,6 +198,38 @@ namespace OnePiece.Controllers
                 return null;
             else
                 return _localizer["File '{0}' was removed because of wrong extension.", file.Name];
+        }
+
+        /// <summary>
+        /// Try to upload file and update entity object
+        /// </summary>
+        /// <param name="weapon"></param>
+        /// <returns>true=No error; false=Has error</returns>
+        private async Task<bool> TryUploadFile(Weapon weapon)
+        {
+            // If no file to upload, return true
+            if (HttpContext.Request.Form.Files == null)
+                return true;
+            var file = HttpContext.Request.Form.Files.FirstOrDefault();
+            if (file == null || file.Length == 0)
+                return true;
+            // Check extension
+            string extensionMsg = CheckExtension(file);
+            if (!string.IsNullOrEmpty(extensionMsg))
+            {
+                ViewBag.WrongExtension = extensionMsg;
+                return false;
+            }
+            // Remove old image
+            if (weapon.ImagePath != null)
+            {
+                string filePath = Path.Combine(_environment.WebRootPath, weapon.ImagePath);
+                if (System.IO.File.Exists(filePath))
+                    System.IO.File.Delete(filePath);
+            }
+            // Upload new image
+            weapon.ImagePath = await UploadFile(file);
+            return true;
         }
 
         #endregion Helper
