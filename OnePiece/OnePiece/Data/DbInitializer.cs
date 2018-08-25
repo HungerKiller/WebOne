@@ -63,6 +63,10 @@ namespace OnePiece.Data
                 var fruit = context.Fruits.FirstOrDefault();
                 person.FruitPossessions = new List<FruitPossession>();
                 person.FruitPossessions.Add(new FruitPossession { PersonID = person.Id, FruitID = fruit.Id });
+                // Add WeaponPossession
+                var weapon = context.Weapons.FirstOrDefault();
+                person.WeaponPossessions = new List<WeaponPossession>();
+                person.WeaponPossessions.Add(new WeaponPossession { PersonID = person.Id, WeaponID = weapon.Id });
                 context.SaveChanges();
             }
             // PirateGroup

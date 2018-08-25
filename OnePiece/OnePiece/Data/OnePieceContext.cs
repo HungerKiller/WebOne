@@ -27,10 +27,13 @@ namespace OnePiece.Data
             modelBuilder.Entity<Weapon>().ToTable("Weapon");
             modelBuilder.Entity<PirateGroup>().ToTable("PirateGroup");
             modelBuilder.Entity<FruitPossession>().ToTable("FruitPossession");
+            modelBuilder.Entity<WeaponPossession>().ToTable("WeaponPossession");
 
             // Fluent API 方式制定主键
             modelBuilder.Entity<FruitPossession>()
                 .HasKey(fp => new { fp.PersonID, fp.FruitID });
+            modelBuilder.Entity<WeaponPossession>()
+                .HasKey(fp => new { fp.PersonID, fp.WeaponID });
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace OnePiece.ViewModels
 {
-    public class AssignedFruit
+    public class AssignedWeapon
     {
-        public int FruitID { get; set; }
+        public int WeaponID { get; set; }
 
         public string Name { get; set; }
 

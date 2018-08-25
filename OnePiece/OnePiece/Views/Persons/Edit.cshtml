@@ -93,6 +93,27 @@
                 </table>
             </div>
             <div class="form-group">
+                <label>@Localizer["Choose weapons"]</label>
+                <table class="table">
+                    <tr>
+                        @{
+                            int countWeapon = 0;
+                            List<OnePiece.ViewModels.AssignedWeapon> weapons = ViewBag.Weapons;
+                            foreach (var weapon in weapons)
+                            {
+                                if (countWeapon++ % 4 == 0)
+                                {
+                                @:</tr><tr>
+                                }
+                                @:<td>
+                                    <input type="checkbox" name="selectedWeapons" value="@weapon.WeaponID" @(Html.Raw(weapon.Assigned ? "checked=\"checked\"" : "")) />@weapon.Name
+                                @:</td>
+                            }
+                        }
+                    </tr>
+                </table>
+            </div>
+            <div class="form-group">
                 <button type="submit" value="Save" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> @Localizer["Save"]</button>
             </div>
         </form>

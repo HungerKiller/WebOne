@@ -40,9 +40,10 @@ namespace OnePiece.Controllers
             {
                 return NotFound();
             }
-            // TODO include WeaponPossessions, GroupPossessions
+            // TODO include GroupPossessions
             var person = await _context.Persons.AsNoTracking()
                 .Include(p => p.FruitPossessions).ThenInclude(fp => fp.Fruit)
+                .Include(p => p.WeaponPossessions).ThenInclude(wp => wp.Weapon)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (person == null)
             {
@@ -57,8 +58,10 @@ namespace OnePiece.Controllers
         {
             Person person = new Person();
             person.FruitPossessions = new List<FruitPossession>();
-            // TODO populate also Weapon PirateGroup
+            person.WeaponPossessions = new List<WeaponPossession>();
+            // TODO populate PirateGroup
             PopulateAssignedFruit(person);
+            PopulateAssignedWeapon(person);
             return View();
         }
 
@@ -67,12 +70,13 @@ namespace OnePiece.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Nickname,Description,RewardMoney,Race,Sex,Birthday,FeatureType,Title,ImagePath")] Person person, string[] selectedFruits)
+        public async Task<IActionResult> Create([Bind("Name,Nickname,Description,RewardMoney,Race,Sex,Birthday,FeatureType,Title,ImagePath")] Person person, string[] selectedFruits, string[] selectedWeapons)
         {
             if (_context.Persons.Any(p => p.Name == person.Name))
             {
                 ViewBag.NameExists = _localizer["Name '{0}' already exists.", person.Name];
                 PopulateAssignedFruit(selectedFruits);
+                PopulateAssignedWeapon(selectedWeapons);
                 return View(person);
             }
             if (ModelState.IsValid)
@@ -81,6 +85,7 @@ namespace OnePiece.Controllers
                 if (!(await TryUploadFile(person)))
                 {
                     PopulateAssignedFruit(selectedFruits);
+                    PopulateAssignedWeapon(selectedWeapons);
                     return View(person);
                 }
                 // Update fruits
@@ -91,6 +96,13 @@ namespace OnePiece.Controllers
                     // 多对多关系，指定了Id，会自动绑定object的值。此处new FruitPossession时，只设置了PersonID和FruitID，而Person和Fruit对象没有指定，但是会自动绑定。
                     person.FruitPossessions.Add(new FruitPossession { PersonID = person.Id, FruitID = fruitId });
                 }
+                // Update weapons
+                person.WeaponPossessions = new List<WeaponPossession>();
+                foreach (var weaponIdStr in selectedWeapons)
+                {
+                    int weaponId = int.Parse(weaponIdStr);
+                    person.WeaponPossessions.Add(new WeaponPossession { PersonID = person.Id, WeaponID = weaponId });
+                }
                 // Reward money
                 if (person.RewardMoney == null)
                     person.RewardMoney = 0;
@@ -100,6 +112,7 @@ namespace OnePiece.Controllers
                 return RedirectToAction(nameof(Index));
             }
             PopulateAssignedFruit(selectedFruits);
+            PopulateAssignedWeapon(selectedWeapons);
             return View(person);
         }
 
@@ -113,12 +126,14 @@ namespace OnePiece.Controllers
 
             var person = await _context.Persons.AsNoTracking()
                 .Include(p => p.FruitPossessions).ThenInclude(fp => fp.Fruit)
+                .Include(p => p.WeaponPossessions).ThenInclude(wp => wp.Weapon)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (person == null)
             {
                 return NotFound();
             }
             PopulateAssignedFruit(person);
+            PopulateAssignedWeapon(person);
             return View(person);
         }
 
@@ -127,7 +142,7 @@ namespace OnePiece.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Nickname,Description,RewardMoney,Race,Sex,Birthday,FeatureType,Title,ImagePath")] Person person, string[] selectedFruits)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Nickname,Description,RewardMoney,Race,Sex,Birthday,FeatureType,Title,ImagePath")] Person person, string[] selectedFruits, string[] selectedWeapons)
         {
             if (id != person.Id)
             {
@@ -136,12 +151,14 @@ namespace OnePiece.Controllers
 
             var personToUpdate = await _context.Persons
                 .Include(p => p.FruitPossessions).ThenInclude(fp => fp.Fruit)
+                .Include(p => p.WeaponPossessions).ThenInclude(wp => wp.Weapon)
                 .SingleOrDefaultAsync(p => p.Id == id);
             // Check if the name exists already
             if (_context.Persons.Any(p => p.Name == person.Name && p.Id != person.Id))
             {
                 ViewBag.NameExists = _localizer["Name '{0}' already exists.", person.Name];
                 PopulateAssignedFruit(selectedFruits);
+                PopulateAssignedWeapon(selectedWeapons);
                 return View(person);
             }
 
@@ -152,10 +169,12 @@ namespace OnePiece.Controllers
                 await TryUpdateModelAsync<Person>(personToUpdate, "", i => i.Name, i => i.Nickname , i => i.Description, i => i.RewardMoney, i => i.Race, i => i.Sex, 
                     i => i.Birthday, i => i.FeatureType, i => i.Title, i => i.ImagePath);
                 UpdatePersonFruits(personToUpdate, selectedFruits);
+                UpdatePersonWeapons(personToUpdate, selectedWeapons);
                 // Try to upload file
                 if (!(await TryUploadFile(personToUpdate)))
                 {
                     PopulateAssignedFruit(personToUpdate);
+                    PopulateAssignedWeapon(personToUpdate);
                     return View(personToUpdate);
                 }
                 // Reward money
@@ -299,13 +318,13 @@ namespace OnePiece.Controllers
         {
             var allFruits = _context.Fruits;
             var viewModel = new List<AssignedFruit>();
-            foreach (var friut in allFruits)
+            foreach (var fruit in allFruits)
             {
                 viewModel.Add(new AssignedFruit
                 {
-                    FruitID = friut.Id,
-                    Name = friut.Name,
-                    Assigned = selectedFruits.ToList().Contains(friut.Id.ToString())
+                    FruitID = fruit.Id,
+                    Name = fruit.Name,
+                    Assigned = selectedFruits.ToList().Contains(fruit.Id.ToString())
                 });
             }
             ViewData["Fruits"] = viewModel;
@@ -336,5 +355,66 @@ namespace OnePiece.Controllers
         }
 
         #endregion Polulate and update fruit of person
+
+        #region Polulate and update weapon of person
+
+        private void PopulateAssignedWeapon(Person person)
+        {
+            var allWeapons = _context.Weapons;
+            var personWeapons = new HashSet<int>(person.WeaponPossessions.Select(wp => wp.WeaponID));
+            var viewModel = new List<AssignedWeapon>();
+            foreach (var weapon in allWeapons)
+            {
+                viewModel.Add(new AssignedWeapon
+                {
+                    WeaponID = weapon.Id,
+                    Name = weapon.Name,
+                    Assigned = personWeapons.Contains(weapon.Id)
+                });
+            }
+            ViewData["Weapons"] = viewModel;
+        }
+
+        private void PopulateAssignedWeapon(string[] selectedWeapons)
+        {
+            var allWeapons = _context.Weapons;
+            var viewModel = new List<AssignedWeapon>();
+            foreach (var weapon in allWeapons)
+            {
+                viewModel.Add(new AssignedWeapon
+                {
+                    WeaponID = weapon.Id,
+                    Name = weapon.Name,
+                    Assigned = selectedWeapons.ToList().Contains(weapon.Id.ToString())
+                });
+            }
+            ViewData["Weapons"] = viewModel;
+        }
+
+        private void UpdatePersonWeapons(Person personToUpdate, string[] selectedWeapons)
+        {
+            var selectedWeaponsHS = new HashSet<string>(selectedWeapons);
+            var personWeapons = new HashSet<int>(personToUpdate.WeaponPossessions.Select(wp => wp.WeaponID));
+            foreach (var weapon in _context.Weapons)
+            {
+                if (selectedWeaponsHS.Contains(weapon.Id.ToString()))
+                {
+                    if (!personWeapons.Contains(weapon.Id))
+                    {
+                        personToUpdate.WeaponPossessions.Add(new WeaponPossession { PersonID = personToUpdate.Id, WeaponID = weapon.Id });
+                    }
+                }
+                else
+                {
+                    if (personWeapons.Contains(weapon.Id))
+                    {
+                        var wPossession = personToUpdate.WeaponPossessions.SingleOrDefault(wp => wp.PersonID == personToUpdate.Id && wp.WeaponID == weapon.Id);
+                        personToUpdate.WeaponPossessions.Remove(wPossession);
+                    }
+                }
+            }
+        }
+
+        #endregion Polulate and update weapon of person
     }
 }

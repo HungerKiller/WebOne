@@ -66,6 +66,22 @@
                     </ul>
                 </td>
             </tr>
+            <tr>
+                <td style="font-weight:bold">@Html.DisplayNameFor(model => model.WeaponPossessions)</td>
+                <td>
+                    <ul>
+                        @{
+                            var weapons = Model.WeaponPossessions.Select(s => s.Weapon);
+                            foreach (var weapon in weapons)
+                            {
+                                @:<li>
+                                    <a asp-controller="Weapons" asp-action="Details" asp-route-id="@weapon.Id"> @weapon.Name</a>
+                                @:</li>
+                            }
+                        }
+                    </ul>
+                </td>
+            </tr>
         </table>
     </div>
     <div class="col-xs-12 col-md-8">

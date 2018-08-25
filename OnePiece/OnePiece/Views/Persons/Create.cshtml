@@ -38,7 +38,7 @@
             <div class="form-group">
                 <label asp-for="Birthday" class="control-label"></label>
                 <label>@Localizer["(Could input any year, because year will be ignored)"]</label>
-                <input asp-for="Birthday" class="form-control"/>
+                <input asp-for="Birthday" class="form-control" />
                 <span asp-validation-for="Birthday" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -71,16 +71,37 @@
                 <table class="table">
                     <tr>
                         @{
-                            int cnt = 0;
+                            int countFruit = 0;
                             List<OnePiece.ViewModels.AssignedFruit> fruits = ViewBag.Fruits;
                             foreach (var fruit in fruits)
                             {
-                                if (cnt++ % 4 == 0)
+                                if (countFruit++ % 4 == 0)
                                 {
                                 @:</tr><tr>
                                 }
                                 @:<td>
                                     <input type="checkbox" name="selectedFruits" value="@fruit.FruitID" @(Html.Raw(fruit.Assigned ? "checked=\"checked\"" : "")) />@fruit.Name
+                                @:</td>
+                            }
+                        }
+                    </tr>
+                </table>
+            </div>
+            <div class="form-group">
+                <label>@Localizer["Choose weapons"]</label>
+                <table class="table">
+                    <tr>
+                        @{
+                            int countWeapon = 0;
+                            List<OnePiece.ViewModels.AssignedWeapon> weapons = ViewBag.Weapons;
+                            foreach (var weapon in weapons)
+                            {
+                                if (countWeapon++ % 4 == 0)
+                                {
+                                @:</tr><tr>
+                                }
+                                @:<td>
+                                    <input type="checkbox" name="selectedWeapons" value="@weapon.WeaponID" @(Html.Raw(weapon.Assigned ? "checked=\"checked\"" : "")) />@weapon.Name
                                 @:</td>
                             }
                         }
