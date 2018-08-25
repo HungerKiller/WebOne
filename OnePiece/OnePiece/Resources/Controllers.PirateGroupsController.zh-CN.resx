@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Can not remove this pirate group, because it still have persons." xml:space="preserve">
+    <value>不能删除这个海贼团，因为它还有船员。</value>
+  </data>
   <data name="File '{0}' was removed because of wrong extension." xml:space="preserve">
     <value>文件'{0}'已被移除，因为错误的扩展类型。</value>
   </data>

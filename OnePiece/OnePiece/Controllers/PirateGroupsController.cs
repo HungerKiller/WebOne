@@ -194,7 +194,12 @@ namespace OnePiece.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var pirateGroup = await _context.PirateGroups.SingleOrDefaultAsync(m => m.Id == id);
+            var pirateGroup = await _context.PirateGroups.Include(g => g.Persons).SingleOrDefaultAsync(m => m.Id == id);
+            if (pirateGroup.Persons.Count != 0)
+            {
+                ViewBag.CantRemove = _localizer["Can not remove this pirate group, because it still have persons."];
+                return View(pirateGroup);
+            }
             _context.PirateGroups.Remove(pirateGroup);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
