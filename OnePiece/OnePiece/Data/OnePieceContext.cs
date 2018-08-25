@@ -15,11 +15,22 @@ namespace OnePiece.Data
         }
 
         public DbSet<Fruit> Fruits { get; set; }
-
         public DbSet<Person> Persons { get; set; }
-
         public DbSet<Weapon> Weapons { get; set; }
-
         public DbSet<PirateGroup> PirateGroups { get; set; }
+        public DbSet<FruitPossession> FruitPossessions { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Fruit>().ToTable("Fruit");
+            modelBuilder.Entity<Person>().ToTable("Person");
+            modelBuilder.Entity<Weapon>().ToTable("Weapon");
+            modelBuilder.Entity<PirateGroup>().ToTable("PirateGroup");
+            modelBuilder.Entity<FruitPossession>().ToTable("FruitPossession");
+
+            // Fluent API 方式制定主键
+            modelBuilder.Entity<FruitPossession>()
+                .HasKey(fp => new { fp.PersonID, fp.FruitID });
+        }
     }
 }

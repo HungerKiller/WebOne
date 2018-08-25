@@ -81,12 +81,6 @@ namespace OnePiece.Models
         /// </summary>
         public PirateGroup PirateGroup { get; set; }
 
-        [Display(Name = "Fruits")]
-        /// <summary>
-        /// 果实。一个人可以有多个果实
-        /// </summary>
-        public ICollection<Fruit> Fruits { get; set; }
-
         [Display(Name = "Weapons")]
         /// <summary>
         /// 武器。一个人可以有多个武器
@@ -98,5 +92,11 @@ namespace OnePiece.Models
         /// 一个人可以有多张照片。第一张作为头像。
         /// </summary>
         public string ImagePath { get; set; }
+
+        [Display(Name = "Fruits")]
+        /// <summary>
+        /// 一个人可以有多个果实
+        /// </summary>
+        public ICollection<FruitPossession> FruitPossessions { get; set; }
     }
 }

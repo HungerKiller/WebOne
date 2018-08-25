@@ -51,11 +51,12 @@
                 <td>@Html.DisplayFor(model => model.Title)</td>
             </tr>
             <tr>
-                <td style="font-weight:bold">@Html.DisplayNameFor(model => model.Fruits)</td>
+                <td style="font-weight:bold">@Html.DisplayNameFor(model => model.FruitPossessions)</td>
                 <td>
                     <ul>
                         @{
-                            foreach (var fruit in Model.Fruits)
+                            var fruits = Model.FruitPossessions.Select(s => s.Fruit);
+                            foreach (var fruit in fruits)
                             {
                                 @:<li>
                                     <a asp-controller="Fruits" asp-action="Details" asp-route-id="@fruit.Id"> @fruit.Name</a>

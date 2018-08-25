@@ -49,14 +49,20 @@ namespace OnePiece.Data
             {
                 var persons = new Person[]
                 {
-                    new Person{Name="Person1",Description="des1",ImagePath="path1",Fruits=new List<Fruit>(), Weapons=new List<Weapon>()},
-                    new Person{Name="Person2",Description="des1",ImagePath="path1",Fruits=new List<Fruit>(), Weapons=new List<Weapon>()},
-                    new Person{Name="Person3",Description="des1",ImagePath="path1",Fruits=new List<Fruit>(), Weapons=new List<Weapon>()},
+                    new Person{Name="Person1",Description="des1",ImagePath="path1"},
+                    new Person{Name="Person2",Description="des1",ImagePath="path1"},
+                    new Person{Name="Person3",Description="des1",ImagePath="path1"},
                 };
                 foreach (Person p in persons)
                 {
                     context.Persons.Add(p);
                 }
+                context.SaveChanges();
+                // Add FruitPossessions
+                var person = context.Persons.FirstOrDefault();
+                var fruit = context.Fruits.FirstOrDefault();
+                person.FruitPossessions = new List<FruitPossession>();
+                person.FruitPossessions.Add(new FruitPossession { PersonID = person.Id, FruitID = fruit.Id });
                 context.SaveChanges();
             }
             // PirateGroup

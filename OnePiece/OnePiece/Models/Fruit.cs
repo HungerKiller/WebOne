@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnePiece.Models
@@ -37,5 +37,7 @@ namespace OnePiece.Models
         /// 果实照片
         /// </summary>
         public string ImagePath { get; set; }
+
+        public ICollection<FruitPossession> FruitPossessions { get; set; }
     }
 }

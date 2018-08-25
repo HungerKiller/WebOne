@@ -40,8 +40,10 @@ namespace OnePiece.Controllers
             {
                 return NotFound();
             }
-
-            var person = await _context.Persons.AsNoTracking().Include(p => p.Fruits).SingleOrDefaultAsync(m => m.Id == id);
+            // TODO include WeaponPossessions, GroupPossessions
+            var person = await _context.Persons.AsNoTracking()
+                .Include(p => p.FruitPossessions).ThenInclude(fp => fp.Fruit)
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (person == null)
             {
                 return NotFound();
@@ -54,7 +56,7 @@ namespace OnePiece.Controllers
         public IActionResult Create()
         {
             Person person = new Person();
-            person.Fruits = new List<Fruit>();
+            person.FruitPossessions = new List<FruitPossession>();
             // TODO populate also Weapon PirateGroup
             PopulateAssignedFruit(person);
             return View();
@@ -82,12 +84,12 @@ namespace OnePiece.Controllers
                     return View(person);
                 }
                 // Update fruits
-                person.Fruits = new List<Fruit>();
+                person.FruitPossessions = new List<FruitPossession>();
                 foreach (var fruitIdStr in selectedFruits)
                 {
                     int fruitId = int.Parse(fruitIdStr);
-                    var fruit = _context.Fruits.SingleOrDefault(p => p.Id == fruitId);
-                    person.Fruits.Add(fruit);
+                    // 多对多关系，指定了Id，会自动绑定object的值。此处new FruitPossession时，只设置了PersonID和FruitID，而Person和Fruit对象没有指定，但是会自动绑定。
+                    person.FruitPossessions.Add(new FruitPossession { PersonID = person.Id, FruitID = fruitId });
                 }
                 // Reward money
                 if (person.RewardMoney == null)
@@ -109,7 +111,9 @@ namespace OnePiece.Controllers
                 return NotFound();
             }
 
-            var person = await _context.Persons.AsNoTracking().Include(p => p.Fruits).SingleOrDefaultAsync(m => m.Id == id);
+            var person = await _context.Persons.AsNoTracking()
+                .Include(p => p.FruitPossessions).ThenInclude(fp => fp.Fruit)
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (person == null)
             {
                 return NotFound();
@@ -130,7 +134,9 @@ namespace OnePiece.Controllers
                 return NotFound();
             }
 
-            var personToUpdate = await _context.Persons.Include(p => p.Fruits).SingleOrDefaultAsync(p => p.Id == id);
+            var personToUpdate = await _context.Persons
+                .Include(p => p.FruitPossessions).ThenInclude(fp => fp.Fruit)
+                .SingleOrDefaultAsync(p => p.Id == id);
             // Check if the name exists already
             if (_context.Persons.Any(p => p.Name == person.Name && p.Id != person.Id))
             {
@@ -275,7 +281,7 @@ namespace OnePiece.Controllers
         private void PopulateAssignedFruit(Person person)
         {
             var allFruits = _context.Fruits;
-            var personFruits = new HashSet<int>(person.Fruits.Select(f => f.Id));
+            var personFruits = new HashSet<int>(person.FruitPossessions.Select(fp => fp.FruitID));
             var viewModel = new List<AssignedFruit>();
             foreach (var fruit in allFruits)
             {
@@ -308,21 +314,22 @@ namespace OnePiece.Controllers
         private void UpdatePersonFruits(Person personToUpdate, string[] selectedFruits)
         {
             var selectedFruitsHS = new HashSet<string>(selectedFruits);
-            var personFruits = new HashSet<int>(personToUpdate.Fruits.Select(f => f.Id));
+            var personFruits = new HashSet<int>(personToUpdate.FruitPossessions.Select(fp => fp.FruitID));
             foreach (var fruit in _context.Fruits)
             {
                 if (selectedFruitsHS.Contains(fruit.Id.ToString())) // 本次选中这个Fruit
                 {
                     if (!personFruits.Contains(fruit.Id)) // 并且这个Fruit之前不在Person中
                     {
-                        personToUpdate.Fruits.Add(fruit); // 则添加Fruit到Person
+                        personToUpdate.FruitPossessions.Add(new FruitPossession { PersonID = personToUpdate.Id, FruitID = fruit.Id }); // 则添加Fruit到Person
                     }
                 }
                 else // 本次没有选中这个Fruit
                 {
                     if (personFruits.Contains(fruit.Id)) // 并且这个Fruit之前属于Person
                     {
-                        personToUpdate.Fruits.Remove(fruit); // 则从Person中删除Fruit
+                        var fPossession = personToUpdate.FruitPossessions.SingleOrDefault(fp => fp.PersonID == personToUpdate.Id && fp.FruitID == fruit.Id);
+                        personToUpdate.FruitPossessions.Remove(fPossession); // 则从Person中删除Fruit
                     }
                 }
             }
