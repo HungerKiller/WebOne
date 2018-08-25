@@ -97,7 +97,7 @@ namespace OnePiece.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            PopulateAssignedPerson(pirateGroup);
+            PopulateAssignedPerson(selectedPersons);
             return View(pirateGroup);
         }
 
@@ -134,7 +134,7 @@ namespace OnePiece.Controllers
             if (_context.PirateGroups.Any(group => group.Name == pirateGroup.Name && group.Id != pirateGroup.Id))
             {
                 ViewBag.NameExists = _localizer["Name '{0}' already exists.", pirateGroup.Name];
-                PopulateAssignedPerson(pirateGroupToUpdate);
+                PopulateAssignedPerson(selectedPersons);
                 return View(pirateGroup);
             }
 
