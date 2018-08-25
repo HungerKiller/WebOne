@@ -117,22 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Back to List" xml:space="preserve">
-    <value>返回列表</value>
+  <data name="Birthday" xml:space="preserve">
+    <value>生日</value>
   </data>
-  <data name="Choose persons" xml:space="preserve">
-    <value>选择船员</value>
+  <data name="Description" xml:space="preserve">
+    <value>描述</value>
   </data>
-  <data name="Edit" xml:space="preserve">
-    <value>编辑</value>
+  <data name="Feature Type" xml:space="preserve">
+    <value>所属势力</value>
+  </data>
+  <data name="Fruits" xml:space="preserve">
+    <value>恶魔果实</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Nickname" xml:space="preserve">
+    <value>外号</value>
   </data>
   <data name="Pirate Group" xml:space="preserve">
     <value>海贼团</value>
   </data>
-  <data name="Save" xml:space="preserve">
-    <value>保存</value>
+  <data name="Race" xml:space="preserve">
+    <value>种族</value>
   </data>
-  <data name="Upload image" xml:space="preserve">
-    <value>上传照片</value>
+  <data name="Reward Money" xml:space="preserve">
+    <value>悬赏金</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>性别</value>
+  </data>
+  <data name="The Birthday field is required." xml:space="preserve">
+    <value>生日是必填项。</value>
+  </data>
+  <data name="The Name field is required." xml:space="preserve">
+    <value>名字是必填项。</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>称号</value>
+  </data>
+  <data name="Weapons" xml:space="preserve">
+    <value>武器</value>
   </data>
 </root>

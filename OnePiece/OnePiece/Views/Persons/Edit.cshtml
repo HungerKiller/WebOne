@@ -1,0 +1,131 @@
+﻿@model OnePiece.Models.Person
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = @Localizer["Edit"];
+}
+
+<h2>@ViewData["Person"]</h2>
+<h4>@Localizer["Fruit"]</h4>
+<hr />
+<div class="row">
+    <div class="col-xs-6 col-md-4">
+        <form method="post" enctype="multipart/form-data" asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+                <p style="color:darkred">@ViewBag.NameExists</p>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nickname" class="control-label"></label>
+                <input asp-for="Nickname" class="form-control" />
+                <span asp-validation-for="Nickname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RewardMoney" class="control-label"></label>
+                <input asp-for="RewardMoney" class="form-control" />
+                <span asp-validation-for="RewardMoney" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Birthday" class="control-label"></label>
+                <label>@Localizer["(Could input any year, because year will be ignored)"]</label>
+                <input asp-for="Birthday" class="form-control" />
+                <span asp-validation-for="Birthday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Race" class="control-label"></label>
+                <select asp-for="Race" asp-items="Html.GetEnumSelectList<Race>()" class="form-control"></select>
+                <span asp-validation-for="Race" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sex" class="control-label"></label>
+                <select asp-for="Sex" asp-items="Html.GetEnumSelectList<Sex>()" class="form-control"></select>
+                <span asp-validation-for="Sex" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FeatureType" class="control-label"></label>
+                <select asp-for="FeatureType" asp-items="Html.GetEnumSelectList<FeatureType>()" class="form-control"></select>
+                <span asp-validation-for="FeatureType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <select asp-for="Title" asp-items="Html.GetEnumSelectList<Title>()" class="form-control"></select>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*使用HiddenFor来隐藏传递的数据*@
+                @Html.HiddenFor(model => model.ImagePath)
+            </div>
+            <div class="form-group">
+                <label>@Localizer["Upload image"]</label>
+                <input id="uploadfile" type="file" name="files" class="form-control" />
+                <p style="color:darkred">@ViewBag.WrongExtension</p>
+            </div>
+            <div class="form-group">
+                <label>@Localizer["Choose fruits"]</label>
+                <table class="table">
+                    <tr>
+                        @{
+                            int cnt = 0;
+                            List<OnePiece.ViewModels.AssignedFruit> fruits = ViewBag.Fruits;
+                            foreach (var fruit in fruits)
+                            {
+                                if (cnt++ % 4 == 0)
+                                {
+                                @:</tr><tr>
+                                }
+                                @:<td>
+                                    <input type="checkbox" name="selectedFruits" value="@fruit.FruitID" @(Html.Raw(fruit.Assigned ? "checked=\"checked\"" : "")) />@fruit.Name
+                                @:</td>
+                            }
+                        }
+                    </tr>
+                </table>
+            </div>
+            <div class="form-group">
+                <button type="submit" value="Save" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> @Localizer["Save"]</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-xs-12 col-md-8">
+        <div style="text-align:center">
+            @*直接获取Model的成员,需要使用大写的Model*@
+            <img id="img" src="~/@Model.ImagePath" alt="" style="max-width:800px">
+        </div>
+    </div>
+</div>
+
+<div>
+    <form asp-action="Index">
+        <button class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span> @Localizer["Back to List"]</button>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#uploadfile").on("change", function () {
+            var file = this.files[0];
+            if (this.files && file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#img").attr("src", e.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        })
+    })
+</script>

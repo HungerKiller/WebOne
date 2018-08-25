@@ -143,7 +143,7 @@ namespace OnePiece.Controllers
                 // Update persons
                 // 把当前的object，用controller创建来的object更新
                 await TryUpdateModelAsync<PirateGroup>(pirateGroupToUpdate, "", i => i.Name, i => i.Description, i => i.ImagePath);
-                UpdatePirateGourpPersons(selectedPersons, pirateGroupToUpdate);
+                UpdatePirateGourpPersons(pirateGroupToUpdate, selectedPersons);
                 // Try to upload file
                 if (!(await TryUploadFile(pirateGroupToUpdate)))
                 {
@@ -296,7 +296,7 @@ namespace OnePiece.Controllers
             ViewData["Persons"] = viewModel;
         }
 
-        private void UpdatePirateGourpPersons(string[] selectedPersons, PirateGroup pirateGroupToUpdate)
+        private void UpdatePirateGourpPersons(PirateGroup pirateGroupToUpdate, string[] selectedPersons)
         {
             var selectedPersonsHS = new HashSet<string>(selectedPersons);
             var groupPersons = new HashSet<int>(pirateGroupToUpdate.Persons.Select(p => p.Id));

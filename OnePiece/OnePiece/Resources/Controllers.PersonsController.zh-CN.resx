@@ -117,22 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Back to List" xml:space="preserve">
-    <value>返回列表</value>
+  <data name="File '{0}' was removed because of wrong extension." xml:space="preserve">
+    <value>文件'{0}'已被移除，因为错误的扩展类型。</value>
   </data>
-  <data name="Choose persons" xml:space="preserve">
-    <value>选择船员</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>编辑</value>
-  </data>
-  <data name="Pirate Group" xml:space="preserve">
-    <value>海贼团</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>保存</value>
-  </data>
-  <data name="Upload image" xml:space="preserve">
-    <value>上传照片</value>
+  <data name="Name '{0}' already exists." xml:space="preserve">
+    <value>名称'{0}'已存在。</value>
   </data>
 </root>

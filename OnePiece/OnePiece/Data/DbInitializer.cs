@@ -16,11 +16,11 @@ namespace OnePiece.Data
             {
                 var fruits = new Fruit[]
                 {
-                    new Fruit{Name="111",Type=FruitType.动物系,Description="des1",ImagePath="path1"},
-                    new Fruit{Name="222",Type=FruitType.动物系,Description="des1",ImagePath="path1"},
-                    new Fruit{Name="333",Type=FruitType.动物系,Description="des1",ImagePath="path1"},
-                    new Fruit{Name="444",Type=FruitType.动物系,Description="des1",ImagePath="path1"},
-                    new Fruit{Name="555",Type=FruitType.动物系,Description="des1",ImagePath="path1"}
+                    new Fruit{Name="Fruit1",Type=FruitType.动物系,Description="des1",ImagePath="path1"},
+                    new Fruit{Name="Fruit2",Type=FruitType.动物系,Description="des1",ImagePath="path1"},
+                    new Fruit{Name="Fruit3",Type=FruitType.动物系,Description="des1",ImagePath="path1"},
+                    new Fruit{Name="Fruit4",Type=FruitType.动物系,Description="des1",ImagePath="path1"},
+                    new Fruit{Name="Fruit5",Type=FruitType.动物系,Description="des1",ImagePath="path1"}
                 };
                 foreach (Fruit f in fruits)
                 {
@@ -33,10 +33,10 @@ namespace OnePiece.Data
             {
                 var weapons = new Weapon[]
                 {
-                    new Weapon{Name="11",Description="des1",ImagePath="path1"},
-                    new Weapon{Name="22",Description="des1",ImagePath="path1"},
-                    new Weapon{Name="33",Description="des1",ImagePath="path1"},
-                    new Weapon{Name="44",Description="des1",ImagePath="path1"}
+                    new Weapon{Name="Weapon1",Description="des1",ImagePath="path1"},
+                    new Weapon{Name="Weapon2",Description="des1",ImagePath="path1"},
+                    new Weapon{Name="Weapon3",Description="des1",ImagePath="path1"},
+                    new Weapon{Name="Weapon4",Description="des1",ImagePath="path1"}
                 };
                 foreach (Weapon w in weapons)
                 {
@@ -49,9 +49,9 @@ namespace OnePiece.Data
             {
                 var persons = new Person[]
                 {
-                    new Person{Name="1",Description="des1",ImagePath="path1"},
-                    new Person{Name="2",Description="des1",ImagePath="path1"},
-                    new Person{Name="3",Description="des1",ImagePath="path1"},
+                    new Person{Name="Person1",Description="des1",ImagePath="path1",Fruits=new List<Fruit>(), Weapons=new List<Weapon>()},
+                    new Person{Name="Person2",Description="des1",ImagePath="path1",Fruits=new List<Fruit>(), Weapons=new List<Weapon>()},
+                    new Person{Name="Person3",Description="des1",ImagePath="path1",Fruits=new List<Fruit>(), Weapons=new List<Weapon>()},
                 };
                 foreach (Person p in persons)
                 {
@@ -64,9 +64,9 @@ namespace OnePiece.Data
             {
                 var pirateGroups = new PirateGroup[]
                 {
-                    new PirateGroup{Name="1",Description="des1",ImagePath="path1"},
-                    new PirateGroup{Name="2",Description="des1",ImagePath="path1"},
-                    new PirateGroup{Name="3",Description="des1",ImagePath="path1"},
+                    new PirateGroup{Name="PirateGroup1",Description="des1",ImagePath="path1"},
+                    new PirateGroup{Name="PirateGroup2",Description="des1",ImagePath="path1"},
+                    new PirateGroup{Name="PirateGroup3",Description="des1",ImagePath="path1"},
                 };
                 foreach (PirateGroup group in pirateGroups)
                 {

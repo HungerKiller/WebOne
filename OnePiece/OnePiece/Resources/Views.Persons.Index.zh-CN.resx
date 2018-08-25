@@ -117,22 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Back to List" xml:space="preserve">
-    <value>返回列表</value>
+  <data name="Create New" xml:space="preserve">
+    <value>新建</value>
   </data>
-  <data name="Choose persons" xml:space="preserve">
-    <value>选择船员</value>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>详情</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>编辑</value>
   </data>
-  <data name="Pirate Group" xml:space="preserve">
-    <value>海贼团</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>保存</value>
-  </data>
-  <data name="Upload image" xml:space="preserve">
-    <value>上传照片</value>
+  <data name="Persons" xml:space="preserve">
+    <value>人物</value>
   </data>
 </root>
