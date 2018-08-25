@@ -27,11 +27,11 @@
                 <td>
                     <ul>
                         @{
-                            List<OnePiece.ViewModels.AssignedPerson> persons = ViewBag.Persons;
-                            foreach (var person in persons)
+                            //List<OnePiece.ViewModels.AssignedPerson> persons = ViewBag.Persons;
+                            foreach (var person in Model.Persons)
                             {
                                 @:<li>
-                                    <a asp-controller="Persons" asp-action="Details" asp-route-id="@person.PersonID"> @person.Name</a>
+                                    <a asp-controller="Persons" asp-action="Details" asp-route-id="@person.Id"> @person.Name</a>
                                 @:</li>
                             }
                         }

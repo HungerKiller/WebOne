@@ -48,7 +48,6 @@ namespace OnePiece.Controllers
             {
                 return NotFound();
             }
-            PopulateAssignedPerson(pirateGroup, true);
             return View(pirateGroup);
         }
 
@@ -263,7 +262,7 @@ namespace OnePiece.Controllers
             return true;
         }
 
-        private void PopulateAssignedPerson(PirateGroup group, bool onlyContain = false)
+        private void PopulateAssignedPerson(PirateGroup group)
         {
             var allPersons = _context.Persons;
             var groupPersons = new HashSet<int>(group.Persons.Select(p => p.Id));
@@ -277,8 +276,6 @@ namespace OnePiece.Controllers
                     Assigned = groupPersons.Contains(person.Id)
                 });
             }
-            if (onlyContain)
-                viewModel = viewModel.Where(vm => vm.Assigned).ToList();
             ViewData["Persons"] = viewModel;
         }
 
