@@ -48,6 +48,7 @@ namespace OnePiece.Controllers
             {
                 return NotFound();
             }
+
             return View(pirateGroup);
         }
 
@@ -71,7 +72,7 @@ namespace OnePiece.Controllers
             if (_context.PirateGroups.Any(group => group.Name == pirateGroup.Name))
             {
                 ViewBag.NameExists = _localizer["Name '{0}' already exists.", pirateGroup.Name];
-                PopulateAssignedPerson(pirateGroup, selectedPersons);
+                PopulateAssignedPerson(selectedPersons);
                 return View(pirateGroup);
             }
             if (ModelState.IsValid)
@@ -79,7 +80,7 @@ namespace OnePiece.Controllers
                 // Try to upload file
                 if (!(await TryUploadFile(pirateGroup)))
                 {
-                    PopulateAssignedPerson(pirateGroup, selectedPersons);
+                    PopulateAssignedPerson(selectedPersons);
                     return View(pirateGroup);
                 }
                 // Update persons
@@ -279,10 +280,9 @@ namespace OnePiece.Controllers
             ViewData["Persons"] = viewModel;
         }
 
-        private void PopulateAssignedPerson(PirateGroup group, string[] selectedPersons)
+        private void PopulateAssignedPerson(string[] selectedPersons)
         {
             var allPersons = _context.Persons;
-            
             var viewModel = new List<AssignedPerson>();
             foreach (var person in allPersons)
             {
