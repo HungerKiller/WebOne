@@ -195,11 +195,14 @@ namespace OnePiece.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var pirateGroup = await _context.PirateGroups.Include(g => g.Persons).SingleOrDefaultAsync(m => m.Id == id);
-            if (pirateGroup.Persons.Count != 0)
+            // Remove file at first
+            if (pirateGroup.ImagePath != null)
             {
-                ViewBag.CantRemove = _localizer["Can not remove this pirate group, because it still have persons."];
-                return View(pirateGroup);
+                string filePath = Path.Combine(_environment.WebRootPath, pirateGroup.ImagePath);
+                if (System.IO.File.Exists(filePath))
+                    System.IO.File.Delete(filePath);
             }
+            // Then remove entity from DB
             _context.PirateGroups.Remove(pirateGroup);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

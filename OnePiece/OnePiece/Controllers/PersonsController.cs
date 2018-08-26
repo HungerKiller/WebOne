@@ -230,6 +230,14 @@ namespace OnePiece.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var person = await _context.Persons.SingleOrDefaultAsync(m => m.Id == id);
+            // Remove file at first
+            if (person.ImagePath != null)
+            {
+                string filePath = Path.Combine(_environment.WebRootPath, person.ImagePath);
+                if (System.IO.File.Exists(filePath))
+                    System.IO.File.Delete(filePath);
+            }
+            // Then remove entity from DB
             _context.Persons.Remove(person);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

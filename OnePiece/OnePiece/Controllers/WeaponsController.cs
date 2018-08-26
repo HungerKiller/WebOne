@@ -164,6 +164,14 @@ namespace OnePiece.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var weapon = await _context.Weapons.SingleOrDefaultAsync(m => m.Id == id);
+            // Remove file at first
+            if (weapon.ImagePath != null)
+            {
+                string filePath = Path.Combine(_environment.WebRootPath, weapon.ImagePath);
+                if (System.IO.File.Exists(filePath))
+                    System.IO.File.Delete(filePath);
+            }
+            // Then remove entity from DB
             _context.Weapons.Remove(weapon);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
