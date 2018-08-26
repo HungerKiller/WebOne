@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnePiece.Models
@@ -30,5 +30,7 @@ namespace OnePiece.Models
         /// 武器照片
         /// </summary>
         public string ImagePath { get; set; }
+
+        public ICollection<WeaponPossession> WeaponPossessions { get; set; }
     }
 }
