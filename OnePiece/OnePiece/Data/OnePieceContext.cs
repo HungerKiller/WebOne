@@ -19,6 +19,7 @@ namespace OnePiece.Data
         public DbSet<Weapon> Weapons { get; set; }
         public DbSet<PirateGroup> PirateGroups { get; set; }
         public DbSet<FruitPossession> FruitPossessions { get; set; }
+        public DbSet<WeaponPossession> WeaponPossessions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using OnePiece.Data;
@@ -44,6 +45,7 @@ namespace OnePiece.Controllers
             var person = await _context.Persons.AsNoTracking()
                 .Include(p => p.FruitPossessions).ThenInclude(fp => fp.Fruit)
                 .Include(p => p.WeaponPossessions).ThenInclude(wp => wp.Weapon)
+                .Include(p => p.PirateGroup)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (person == null)
             {
@@ -59,7 +61,7 @@ namespace OnePiece.Controllers
             Person person = new Person();
             person.FruitPossessions = new List<FruitPossession>();
             person.WeaponPossessions = new List<WeaponPossession>();
-            // TODO populate PirateGroup
+            PopulatePirateGroupsDropDownList();
             PopulateAssignedFruit(person);
             PopulateAssignedWeapon(person);
             return View();
@@ -70,7 +72,7 @@ namespace OnePiece.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Nickname,Description,RewardMoney,Race,Sex,Birthday,FeatureType,Title,ImagePath")] Person person, string[] selectedFruits, string[] selectedWeapons)
+        public async Task<IActionResult> Create([Bind("Name,Nickname,Description,RewardMoney,Race,Sex,Birthday,FeatureType,Title,PirateGroupID,ImagePath")] Person person, string[] selectedFruits, string[] selectedWeapons, string PirateGroupID)
         {
             if (_context.Persons.Any(p => p.Name == person.Name))
             {
@@ -123,7 +125,7 @@ namespace OnePiece.Controllers
             {
                 return NotFound();
             }
-
+            // 因为我们定义Model，把PirateGroupID显式添加到Model中，所以这里不需要Include PirateGroup。这就是把外键Id显式的作为Model成员的好处。
             var person = await _context.Persons.AsNoTracking()
                 .Include(p => p.FruitPossessions).ThenInclude(fp => fp.Fruit)
                 .Include(p => p.WeaponPossessions).ThenInclude(wp => wp.Weapon)
@@ -132,6 +134,7 @@ namespace OnePiece.Controllers
             {
                 return NotFound();
             }
+            PopulatePirateGroupsDropDownList(person.PirateGroupID);
             PopulateAssignedFruit(person);
             PopulateAssignedWeapon(person);
             return View(person);
@@ -142,7 +145,7 @@ namespace OnePiece.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Nickname,Description,RewardMoney,Race,Sex,Birthday,FeatureType,Title,ImagePath")] Person person, string[] selectedFruits, string[] selectedWeapons)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Nickname,Description,RewardMoney,Race,Sex,Birthday,FeatureType,Title,PirateGroupID,ImagePath")] Person person, string[] selectedFruits, string[] selectedWeapons)
         {
             if (id != person.Id)
             {
@@ -157,6 +160,7 @@ namespace OnePiece.Controllers
             if (_context.Persons.Any(p => p.Name == person.Name && p.Id != person.Id))
             {
                 ViewBag.NameExists = _localizer["Name '{0}' already exists.", person.Name];
+                PopulatePirateGroupsDropDownList(person.PirateGroupID);
                 PopulateAssignedFruit(selectedFruits);
                 PopulateAssignedWeapon(selectedWeapons);
                 return View(person);
@@ -167,12 +171,13 @@ namespace OnePiece.Controllers
                 // Update fruits
                 // 把当前的object，用controller创建来的object更新
                 await TryUpdateModelAsync<Person>(personToUpdate, "", i => i.Name, i => i.Nickname , i => i.Description, i => i.RewardMoney, i => i.Race, i => i.Sex, 
-                    i => i.Birthday, i => i.FeatureType, i => i.Title, i => i.ImagePath);
+                    i => i.Birthday, i => i.FeatureType, i => i.Title, i => i.PirateGroupID, i => i.ImagePath);
                 UpdatePersonFruits(personToUpdate, selectedFruits);
                 UpdatePersonWeapons(personToUpdate, selectedWeapons);
                 // Try to upload file
                 if (!(await TryUploadFile(personToUpdate)))
                 {
+                    PopulatePirateGroupsDropDownList(personToUpdate.PirateGroupID);
                     PopulateAssignedFruit(personToUpdate);
                     PopulateAssignedWeapon(personToUpdate);
                     return View(personToUpdate);
@@ -416,5 +421,17 @@ namespace OnePiece.Controllers
         }
 
         #endregion Polulate and update weapon of person
+
+        #region Polulate pirate group
+
+        private void PopulatePirateGroupsDropDownList(object selectedGroup = null)
+        {
+            var groupsQuery = from d in _context.PirateGroups
+                                   orderby d.Name
+                                   select d;
+            ViewBag.PirateGroupID = new SelectList(groupsQuery.AsNoTracking(), "Id", "Name", selectedGroup);
+        }
+
+        #endregion Polulate pirate group
     }
 }

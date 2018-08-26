@@ -51,6 +51,15 @@
                 <td>@Html.DisplayFor(model => model.Title)</td>
             </tr>
             <tr>
+                <td style="font-weight:bold">@Html.DisplayNameFor(model => model.PirateGroup)</td>
+                @{
+                    var pirateGroup = Model.PirateGroup;
+                    @:<td>
+                        <a asp-controller="PirateGroups" asp-action="Details" asp-route-id="@pirateGroup.Id"> @pirateGroup.Name</a>
+                    @:</td>
+                }
+            </tr>
+            <tr>
                 <td style="font-weight:bold">@Html.DisplayNameFor(model => model.FruitPossessions)</td>
                 <td>
                     <ul>

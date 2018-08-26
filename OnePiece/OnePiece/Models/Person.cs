@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnePiece.Models
 {
@@ -36,6 +34,7 @@ namespace OnePiece.Models
         /// </summary>
         public string Description { get; set; }
 
+        [DataType(DataType.Currency)]
         [Display(Name = "Reward Money")]
         /// <summary>
         /// 悬赏金（单位：贝利）
@@ -74,6 +73,15 @@ namespace OnePiece.Models
         /// 称号/头衔
         /// </summary>
         public Title Title { get; set; }
+
+        // 知识点1：默认情况下，含有成员object PirateGroup，EF就会自动创建PirateGroupID。这里显式的创建成员int PirateGroupID，就是为了更方便的使用
+        // 知识点2：WeaponPossession里，插入Id和object就可以，但是这里就会出错
+        // "The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_Person_PirateGroup_PirateGroupID\". The conflict occurred in database \"OnePiece\", table \"dbo.PirateGroup\", column 'PirateGroupID'.\r\nThe statement has been terminated."
+        // 是因为WeaponPossession里PersonID和WeaponID共同构成主键，所以这两个字段不可能是null的。
+        // 而这里PirateGroupID是外键，EF默认它不是nullable的，所以new一个Person对象，但是却没有指定对应的PirateGroupID和PirateGroup，就会出错。
+        // 所以如果你需要PirateGroup可以为null，那么则定义PirateGroupID为int?。
+        // 否则定义PirateGroupID为int，但是不管是DataIntializer还是Create/Edit方法，都要注意PirateGroup必须有值。
+        public int? PirateGroupID { get; set; }
 
         [Display(Name = "Pirate Group")]
         /// <summary>

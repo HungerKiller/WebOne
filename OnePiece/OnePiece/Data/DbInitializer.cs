@@ -44,31 +44,6 @@ namespace OnePiece.Data
                 }
                 context.SaveChanges();
             }
-            // Person
-            if (!context.Persons.Any())
-            {
-                var persons = new Person[]
-                {
-                    new Person{Name="Person1",Description="des1",ImagePath="path1"},
-                    new Person{Name="Person2",Description="des1",ImagePath="path1"},
-                    new Person{Name="Person3",Description="des1",ImagePath="path1"},
-                };
-                foreach (Person p in persons)
-                {
-                    context.Persons.Add(p);
-                }
-                context.SaveChanges();
-                // Add FruitPossessions
-                var person = context.Persons.FirstOrDefault();
-                var fruit = context.Fruits.FirstOrDefault();
-                person.FruitPossessions = new List<FruitPossession>();
-                person.FruitPossessions.Add(new FruitPossession { PersonID = person.Id, FruitID = fruit.Id });
-                // Add WeaponPossession
-                var weapon = context.Weapons.FirstOrDefault();
-                person.WeaponPossessions = new List<WeaponPossession>();
-                person.WeaponPossessions.Add(new WeaponPossession { PersonID = person.Id, WeaponID = weapon.Id });
-                context.SaveChanges();
-            }
             // PirateGroup
             if (!context.PirateGroups.Any())
             {
@@ -82,10 +57,56 @@ namespace OnePiece.Data
                 {
                     context.PirateGroups.Add(group);
                 }
-                pirateGroups[0].Persons = new List<Person>();
-                pirateGroups[0].Persons.Add(context.Persons.First());
+                //pirateGroups[0].Persons = new List<Person>();
+                //pirateGroups[0].Persons.Add(context.Persons.First());
                 context.SaveChanges();
             }
+            // Person
+            if (!context.Persons.Any())
+            {
+                var persons = new Person[]
+                {
+                    new Person{Name="Person1",Description="des1",ImagePath="path1"},
+                    new Person{Name="Person2",Description="des1",ImagePath="path1"},
+                    new Person{Name="Person3",Description="des1",ImagePath="path1"},
+                };
+                foreach (Person p in persons)
+                {
+                    context.Persons.Add(p);
+                    context.SaveChanges();
+                }
+                //context.SaveChanges();
+                //// Add FruitPossessions
+                //var person = context.Persons.FirstOrDefault();
+                //var fruit = context.Fruits.FirstOrDefault();
+                //person.FruitPossessions = new List<FruitPossession>();
+                //person.FruitPossessions.Add(new FruitPossession { PersonID = person.Id, FruitID = fruit.Id });
+                //// Add WeaponPossession
+                //var weapon = context.Weapons.FirstOrDefault();
+                //person.WeaponPossessions = new List<WeaponPossession>();
+                //person.WeaponPossessions.Add(new WeaponPossession { PersonID = person.Id, WeaponID = weapon.Id });
+                //context.SaveChanges();
+            }
+
+            // Add FruitPossessions
+            if (!context.FruitPossessions.Any())
+            {
+                var person = context.Persons.FirstOrDefault();
+                var fruit = context.Fruits.FirstOrDefault();
+                person.FruitPossessions = new List<FruitPossession>();
+                person.FruitPossessions.Add(new FruitPossession { PersonID = person.Id, FruitID = fruit.Id });
+                context.SaveChanges();
+            }
+            // Add WeaponPossessions
+            if (!context.WeaponPossessions.Any())
+            {
+                var person = context.Persons.FirstOrDefault();
+                var weapon = context.Weapons.FirstOrDefault();
+                person.WeaponPossessions = new List<WeaponPossession>();
+                person.WeaponPossessions.Add(new WeaponPossession { PersonID = person.Id, WeaponID = weapon.Id });
+                context.SaveChanges();
+            }
+            
         }
     }
 }

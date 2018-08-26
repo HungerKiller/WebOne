@@ -120,11 +120,17 @@
   <data name="(Could input any year, because year will be ignored)" xml:space="preserve">
     <value>（可以填入任意年份，因为年份会被忽略）</value>
   </data>
+  <data name="-- Select Pirate Group --" xml:space="preserve">
+    <value>-- 选择海贼团 --</value>
+  </data>
   <data name="Back to List" xml:space="preserve">
     <value>返回列表</value>
   </data>
   <data name="Choose fruits" xml:space="preserve">
     <value>选择果实</value>
+  </data>
+  <data name="Choose weapons" xml:space="preserve">
+    <value>选择武器</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>编辑</value>
