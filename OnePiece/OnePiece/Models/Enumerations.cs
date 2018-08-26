@@ -5,10 +5,14 @@
     /// </summary>
     public enum Race
     {
-        Human,
-        Fishman,
-        Animal,
-        Unknown
+        //Human,
+        //Fishman,
+        //Animal,
+        //Unknown
+        人类,
+        鱼人,
+        动物,
+        未知
     }
 
     /// <summary>
@@ -16,10 +20,14 @@
     /// </summary>
     public enum Sex
     {
-        Male,
-        Female,
-        Bisexual,
-        Unknown
+        //Male,
+        //Female,
+        //Bisexual,
+        //Unknown
+        男,
+        女,
+        双性,
+        未知
     }
 
     /// <summary>
@@ -27,11 +35,16 @@
     /// </summary>
     public enum FeatureType
     {
-        Government,
-        Navy,
-        Pirate,
-        Revolutionist,
-        CommonPeople
+        //Government,
+        //Navy,
+        //Pirate,
+        //Revolutionist,
+        //CommonPeople
+        世界政府,
+        海军,
+        海贼,
+        革命军,
+        居民
     }
 
     // TODO

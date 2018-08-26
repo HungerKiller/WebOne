@@ -55,7 +55,10 @@
                 @{
                     var pirateGroup = Model.PirateGroup;
                     @:<td>
-                        <a asp-controller="PirateGroups" asp-action="Details" asp-route-id="@pirateGroup.Id"> @pirateGroup.Name</a>
+                        if (pirateGroup != null)
+                        {
+                            <a asp-controller="PirateGroups" asp-action="Details" asp-route-id="@pirateGroup.Id"> @pirateGroup.Name</a>
+                        }
                     @:</td>
                 }
             </tr>
