@@ -27,9 +27,15 @@ namespace OnePiece.Models
         /// </summary>
         public FruitType Type { get; set; }
 
+        [Display(Name = "Ability")]
+        /// <summary>
+        /// 能力
+        /// </summary>
+        public string Ability { get; set; }
+
         [Display(Name = "Description")]
         /// <summary>
-        /// 描述
+        /// 详细描述
         /// </summary>
         public string Description { get; set; }
 

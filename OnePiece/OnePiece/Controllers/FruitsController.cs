@@ -60,7 +60,7 @@ namespace OnePiece.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Type,Description")] Fruit fruit)
+        public async Task<IActionResult> Create([Bind("Name,Type,Ability,Description")] Fruit fruit)
         {
             // Check if name already exists
             if (_context.Fruits.Any(f => f.Name == fruit.Name))
@@ -103,7 +103,7 @@ namespace OnePiece.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Type,Description,ImagePath")] Fruit fruit)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Type,Ability,Description,ImagePath")] Fruit fruit)
         {
             if (id != fruit.Id)
             {

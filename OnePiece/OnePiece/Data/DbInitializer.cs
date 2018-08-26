@@ -1,6 +1,7 @@
 ﻿using OnePiece.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,14 +15,7 @@ namespace OnePiece.Data
             // Fruits
             if (!context.Fruits.Any())
             {
-                var fruits = new Fruit[]
-                {
-                    new Fruit{Name="Fruit1",Type=FruitType.动物系,Description="des1",ImagePath="path1"},
-                    new Fruit{Name="Fruit2",Type=FruitType.动物系,Description="des1",ImagePath="path1"},
-                    new Fruit{Name="Fruit3",Type=FruitType.动物系,Description="des1",ImagePath="path1"},
-                    new Fruit{Name="Fruit4",Type=FruitType.动物系,Description="des1",ImagePath="path1"},
-                    new Fruit{Name="Fruit5",Type=FruitType.动物系,Description="des1",ImagePath="path1"}
-                };
+                var fruits = GetFruitsFromFile("Data/Files/Fruit.txt");
                 foreach (Fruit f in fruits)
                 {
                     context.Fruits.Add(f);
@@ -107,6 +101,28 @@ namespace OnePiece.Data
                 context.SaveChanges();
             }
             
+        }
+
+        private static List<Fruit> GetFruitsFromFile(string filePath)
+        {
+            List<Fruit> fruits = new List<Fruit>();
+            if (!File.Exists(filePath))
+                return fruits;
+            // Read file
+            using (StreamReader sr = new StreamReader(filePath))
+            {
+                // Read header
+                sr.ReadLine();
+                // Read content
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    var array = line.Split('&');
+                    Enum.TryParse((array[1]), out FruitType fruitType);
+                    fruits.Add(new Fruit { Name = array[0], Type = fruitType, Ability = array[2], Description = array[3] });
+                }
+            }
+            return fruits;
         }
     }
 }

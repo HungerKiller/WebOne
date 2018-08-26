@@ -21,7 +21,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Type)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ability)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -33,6 +35,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ability)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span> @Localizer["Edit"]</a>
