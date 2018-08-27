@@ -27,9 +27,22 @@ namespace OnePiece.Controllers
         }
 
         // GET: Weapons
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, int? page)
         {
-            return View(await _context.Weapons.AsNoTracking().ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            var weapons = from w in _context.Weapons select w;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    weapons = weapons.OrderByDescending(w => w.Name);
+                    break;
+                default:
+                    weapons = weapons.OrderBy(w => w.Name);
+                    break;
+            }
+            int pageSize = 13;
+            return View(await PaginatedList<Weapon>.CreateAsync(weapons.AsNoTracking(), page ?? 1, pageSize));
         }
 
         // GET: Weapons/Details/5

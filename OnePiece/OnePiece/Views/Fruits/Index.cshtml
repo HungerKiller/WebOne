@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OnePiece.Models.Fruit>
+﻿@model PaginatedList<OnePiece.Models.Fruit>
 @using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IViewLocalizer Localizer
@@ -16,13 +16,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Localizer["Name"]</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Type)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TypeSortParm"]">@Localizer["Type"]</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ability)
+                @Localizer["Ability"]
             </th>
         </tr>
     </thead>
@@ -48,3 +48,14 @@
         }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-page="@(Model.PageIndex - 1)" class="btn btn-default @prevDisabled">
+    <span class="glyphicon glyphicon-chevron-left"></span>@Localizer["Previous"]
+</a>
+<a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-page="@(Model.PageIndex + 1)" class="btn btn-default @nextDisabled">
+    @Localizer["Next"]<span class="glyphicon glyphicon-chevron-right"></span>
+</a>

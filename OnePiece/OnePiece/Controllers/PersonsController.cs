@@ -29,9 +29,50 @@ namespace OnePiece.Controllers
         }
 
         // GET: Person
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, int? page)
         {
-            return View(await _context.Persons.AsNoTracking().ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["RaceSortParm"] = sortOrder == "race_asc" ? "race_desc" : "race_asc";
+            ViewData["SexSortParm"] = sortOrder == "sex_asc" ? "sex_desc" : "sex_asc";
+            ViewData["BirthdaySortParm"] = sortOrder == "birthday_asc" ? "birthday_desc" : "birthday_asc";
+            ViewData["RewardMoneySortParm"] = sortOrder == "money_asc" ? "money_desc" : "money_asc";
+            var persons = from p in _context.Persons select p;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    persons = persons.OrderByDescending(p => p.Name);
+                    break;
+                case "race_asc":
+                    persons = persons.OrderBy(p => p.Race);
+                    break;
+                case "race_desc":
+                    persons = persons.OrderByDescending(p => p.Race);
+                    break;
+                case "sex_asc":
+                    persons = persons.OrderBy(p => p.Race);
+                    break;
+                case "sex_desc":
+                    persons = persons.OrderByDescending(p => p.Race);
+                    break;
+                case "birthday_asc":
+                    persons = persons.OrderBy(p => p.Race);
+                    break;
+                case "birthday_desc":
+                    persons = persons.OrderByDescending(p => p.Race);
+                    break;
+                case "money_asc":
+                    persons = persons.OrderBy(p => p.Race);
+                    break;
+                case "money_desc":
+                    persons = persons.OrderByDescending(p => p.Race);
+                    break;
+                default:
+                    persons = persons.OrderBy(p => p.Name);
+                    break;
+            }
+            int pageSize = 13;
+            return View(await PaginatedList<Person>.CreateAsync(persons.AsNoTracking(), page ?? 1, pageSize));
         }
 
         // GET: Person/Details/5

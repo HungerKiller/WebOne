@@ -27,9 +27,29 @@ namespace OnePiece.Controllers
         }
 
         // GET: Fruits
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, int? page)
         {
-            return View(await _context.Fruits.AsNoTracking().ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["TypeSortParm"] = sortOrder == "type_asc" ? "type_desc" : "type_asc";
+            var fruits = from f in _context.Fruits select f;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    fruits = fruits.OrderByDescending(f => f.Name);
+                    break;
+                case "type_asc":
+                    fruits = fruits.OrderBy(f => f.Type);
+                    break;
+                case "type_desc":
+                    fruits = fruits.OrderByDescending(f => f.Type);
+                    break;
+                default:
+                    fruits = fruits.OrderBy(f => f.Name);
+                    break;
+            }
+            int pageSize = 13;
+            return View(await PaginatedList<Fruit>.CreateAsync(fruits.AsNoTracking(), page ?? 1, pageSize));
         }
 
         // GET: Fruits/Details/5

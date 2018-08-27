@@ -29,9 +29,22 @@ namespace OnePiece.Controllers
         }
 
         // GET: PirateGroups
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, int? page)
         {
-            return View(await _context.PirateGroups.AsNoTracking().ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            var pirateGroups = from pg in _context.PirateGroups select pg;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    pirateGroups = pirateGroups.OrderByDescending(pg => pg.Name);
+                    break;
+                default:
+                    pirateGroups = pirateGroups.OrderBy(pg => pg.Name);
+                    break;
+            }
+            int pageSize = 13;
+            return View(await PaginatedList<PirateGroup>.CreateAsync(pirateGroups.AsNoTracking(), page ?? 1, pageSize));
         }
 
         // GET: PirateGroups/Details/5

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OnePiece.Models.PirateGroup>
+﻿@model PaginatedList<OnePiece.Models.PirateGroup>
 @using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IViewLocalizer Localizer
@@ -16,9 +16,8 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Localizer["Name"]</a>
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -37,3 +36,14 @@
         }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-page="@(Model.PageIndex - 1)" class="btn btn-default @prevDisabled">
+    <span class="glyphicon glyphicon-chevron-left"></span>@Localizer["Previous"]
+</a>
+<a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-page="@(Model.PageIndex + 1)" class="btn btn-default @nextDisabled">
+    @Localizer["Next"]<span class="glyphicon glyphicon-chevron-right"></span>
+</a>

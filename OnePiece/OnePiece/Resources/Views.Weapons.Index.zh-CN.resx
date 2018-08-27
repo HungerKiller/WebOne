@@ -129,6 +129,15 @@
   <data name="Edit" xml:space="preserve">
     <value>编辑</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>后页</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>前页</value>
+  </data>
   <data name="Weapons" xml:space="preserve">
     <value>武器</value>
   </data>

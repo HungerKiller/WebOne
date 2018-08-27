@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Ability" xml:space="preserve">
+    <value>能力</value>
+  </data>
   <data name="Create New" xml:space="preserve">
     <value>新建</value>
   </data>
@@ -131,5 +134,17 @@
   </data>
   <data name="Fruits" xml:space="preserve">
     <value>恶魔果实</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>后页</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>前页</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>类型</value>
   </data>
 </root>

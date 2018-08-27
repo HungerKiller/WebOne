@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Birthday" xml:space="preserve">
+    <value>生日</value>
+  </data>
   <data name="Create New" xml:space="preserve">
     <value>新建</value>
   </data>
@@ -129,7 +132,25 @@
   <data name="Edit" xml:space="preserve">
     <value>编辑</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>后页</value>
+  </data>
   <data name="Persons" xml:space="preserve">
     <value>人物</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>前页</value>
+  </data>
+  <data name="Race" xml:space="preserve">
+    <value>种族</value>
+  </data>
+  <data name="Reward Money" xml:space="preserve">
+    <value>悬赏金</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>性别</value>
   </data>
 </root>
