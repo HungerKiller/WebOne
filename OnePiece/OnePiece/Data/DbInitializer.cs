@@ -119,7 +119,7 @@ namespace OnePiece.Data
                 {
                     var array = line.Split('&');
                     Enum.TryParse((array[1]), out FruitType fruitType);
-                    fruits.Add(new Fruit { Name = array[0], Type = fruitType, Ability = array[2], Description = array[3] });
+                    fruits.Add(new Fruit { Name = array[0], Type = fruitType, Ability = array[3]});
                 }
             }
             return fruits;
