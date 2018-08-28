@@ -59,22 +59,22 @@ namespace OnePiece.Controllers
                     persons = persons.OrderByDescending(p => p.Race);
                     break;
                 case "sex_asc":
-                    persons = persons.OrderBy(p => p.Race);
+                    persons = persons.OrderBy(p => p.Sex);
                     break;
                 case "sex_desc":
-                    persons = persons.OrderByDescending(p => p.Race);
+                    persons = persons.OrderByDescending(p => p.Sex);
                     break;
                 case "birthday_asc":
-                    persons = persons.OrderBy(p => p.Race);
+                    persons = persons.OrderBy(p => p.Birthday);
                     break;
                 case "birthday_desc":
-                    persons = persons.OrderByDescending(p => p.Race);
+                    persons = persons.OrderByDescending(p => p.Birthday);
                     break;
                 case "money_asc":
-                    persons = persons.OrderBy(p => p.Race);
+                    persons = persons.OrderBy(p => p.RewardMoney);
                     break;
                 case "money_desc":
-                    persons = persons.OrderByDescending(p => p.Race);
+                    persons = persons.OrderByDescending(p => p.RewardMoney);
                     break;
                 default:
                     persons = persons.OrderBy(p => p.Name);

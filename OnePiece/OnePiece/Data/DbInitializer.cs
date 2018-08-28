@@ -45,47 +45,31 @@ namespace OnePiece.Data
             // TODO Person
             if (!context.Persons.Any())
             {
-                var persons = new Person[]
-                {
-                    new Person{Name="Person1",Description="des1",ImagePath="path1"},
-                    new Person{Name="Person2",Description="des1",ImagePath="path1"},
-                    new Person{Name="Person3",Description="des1",ImagePath="path1"},
-                };
+                var persons = GetPersonsFromFile("Data/Files/Person.txt");
                 foreach (Person p in persons)
                 {
                     context.Persons.Add(p);
-                    context.SaveChanges();
                 }
-                //context.SaveChanges();
-                //// Add FruitPossessions
-                //var person = context.Persons.FirstOrDefault();
-                //var fruit = context.Fruits.FirstOrDefault();
-                //person.FruitPossessions = new List<FruitPossession>();
-                //person.FruitPossessions.Add(new FruitPossession { PersonID = person.Id, FruitID = fruit.Id });
-                //// Add WeaponPossession
-                //var weapon = context.Weapons.FirstOrDefault();
-                //person.WeaponPossessions = new List<WeaponPossession>();
-                //person.WeaponPossessions.Add(new WeaponPossession { PersonID = person.Id, WeaponID = weapon.Id });
-                //context.SaveChanges();
-            }
-            // TODO Add FruitPossessions
-            if (!context.FruitPossessions.Any())
-            {
-                var person = context.Persons.FirstOrDefault();
-                var fruit = context.Fruits.FirstOrDefault();
-                person.FruitPossessions = new List<FruitPossession>();
-                person.FruitPossessions.Add(new FruitPossession { PersonID = person.Id, FruitID = fruit.Id });
                 context.SaveChanges();
             }
-            // TODO Add WeaponPossessions
-            if (!context.WeaponPossessions.Any())
-            {
-                var person = context.Persons.FirstOrDefault();
-                var weapon = context.Weapons.FirstOrDefault();
-                person.WeaponPossessions = new List<WeaponPossession>();
-                person.WeaponPossessions.Add(new WeaponPossession { PersonID = person.Id, WeaponID = weapon.Id });
-                context.SaveChanges();
-            }
+            //// TODO Add FruitPossessions
+            //if (!context.FruitPossessions.Any())
+            //{
+            //    var person = context.Persons.FirstOrDefault();
+            //    var fruit = context.Fruits.FirstOrDefault();
+            //    person.FruitPossessions = new List<FruitPossession>();
+            //    person.FruitPossessions.Add(new FruitPossession { PersonID = person.Id, FruitID = fruit.Id });
+            //    context.SaveChanges();
+            //}
+            //// TODO Add WeaponPossessions
+            //if (!context.WeaponPossessions.Any())
+            //{
+            //    var person = context.Persons.FirstOrDefault();
+            //    var weapon = context.Weapons.FirstOrDefault();
+            //    person.WeaponPossessions = new List<WeaponPossession>();
+            //    person.WeaponPossessions.Add(new WeaponPossession { PersonID = person.Id, WeaponID = weapon.Id });
+            //    context.SaveChanges();
+            //}
             // Add Setting
             if (!context.Settings.Any())
             {
@@ -111,7 +95,7 @@ namespace OnePiece.Data
                     if (line.StartsWith("#"))
                         continue;
                     var array = line.Split('&');
-                    Enum.TryParse((array[1]), out FruitType fruitType);
+                    Enum.TryParse(array[1], out FruitType fruitType);
                     fruits.Add(new Fruit { Name = array[0], Type = fruitType, Ability = array[3] });
                 }
             }
@@ -162,6 +146,48 @@ namespace OnePiece.Data
                 }
             }
             return pirateGroups;
+        }
+
+        private static List<Person> GetPersonsFromFile(string filePath)
+        {
+            List<Person> persons = new List<Person>();
+            if (!File.Exists(filePath))
+                return persons;
+            // Read file
+            using (StreamReader sr = new StreamReader(filePath))
+            {
+                // Read header
+                sr.ReadLine();
+                // Read content
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (line.StartsWith("#"))
+                        continue;
+                    var array = line.Split('&');
+
+                    // 0=Name, 1=Nickname, 2=RewardMoney, 3=Birthday, 4=Race, 5=Sex, 6=FeatureType, 7=Title, 8=PirateGroup, 9=Description
+                    int.TryParse(array[2], out int rewardMoney);
+                    DateTime.TryParse(array[3], out DateTime birthday);
+                    Enum.TryParse(array[4], out Race race);
+                    Enum.TryParse(array[5], out Sex sex);
+                    Enum.TryParse(array[6], out FeatureType featureType);
+                    Enum.TryParse(array[7], out Title title);
+
+                    persons.Add(new Person {
+                        Name = array[0],
+                        Nickname = array[1],
+                        RewardMoney = rewardMoney,
+                        Birthday = birthday,
+                        Race = race,
+                        Sex = sex,
+                        FeatureType = featureType,
+                        Title = title,
+                        Description = array[9]
+                    });
+                }
+            }
+            return persons;
         }
     }
 }
