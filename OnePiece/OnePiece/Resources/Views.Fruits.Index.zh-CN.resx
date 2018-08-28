@@ -120,6 +120,9 @@
   <data name="Ability" xml:space="preserve">
     <value>能力</value>
   </data>
+  <data name="Back to List" xml:space="preserve">
+    <value>返回列表</value>
+  </data>
   <data name="Create New" xml:space="preserve">
     <value>新建</value>
   </data>
@@ -143,6 +146,12 @@
   </data>
   <data name="Previous" xml:space="preserve">
     <value>前页</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>查找</value>
+  </data>
+  <data name="Search by name:" xml:space="preserve">
+    <value>按名称查找：</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>类型</value>

@@ -27,12 +27,21 @@ namespace OnePiece.Controllers
         }
 
         // GET: Fruits
-        public async Task<IActionResult> Index(string sortOrder, int? page)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["TypeSortParm"] = sortOrder == "type_asc" ? "type_desc" : "type_asc";
+            searchString = searchString ?? currentFilter;
+            ViewData["CurrentFilter"] = searchString;
+
             var fruits = from f in _context.Fruits select f;
+            // Search
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                fruits = fruits.Where(f => f.Name.Contains(searchString));
+            }
+            // Order
             switch (sortOrder)
             {
                 case "name_desc":
