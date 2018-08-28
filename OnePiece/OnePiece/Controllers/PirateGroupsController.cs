@@ -29,11 +29,20 @@ namespace OnePiece.Controllers
         }
 
         // GET: PirateGroups
-        public async Task<IActionResult> Index(string sortOrder, int? page)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            searchString = searchString ?? currentFilter;
+            ViewData["CurrentFilter"] = searchString;
+
             var pirateGroups = from pg in _context.PirateGroups select pg;
+            // Search
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                pirateGroups = pirateGroups.Where(group => group.Name.Contains(searchString));
+            }
+            // Order
             switch (sortOrder)
             {
                 case "name_desc":

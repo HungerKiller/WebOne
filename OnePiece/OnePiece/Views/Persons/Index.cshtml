@@ -12,23 +12,36 @@
 <p>
     <a asp-action="Create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> @Localizer["Create New"]</a>
 </p>
+
+<form asp-action="Index" method="get">
+    @*注意form-inline与form-group的使用*@
+    <div class="form-inline">
+        <div class="form-group">
+            <label>@Localizer["Search by name:"]</label>
+            <input type="text" name="SearchString" value="@ViewData["currentFilter"]" class="form-control" />
+        </div>
+        <input type="submit" value="@Localizer["Search"]" class="btn btn-default" />
+        <a asp-action="Index" class="btn btn-default">@Localizer["Back to List"]</a>
+    </div>
+</form>
+
 <table class="table table-striped">
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Localizer["Name"]</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@Localizer["Name"]</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["RaceSortParm"]">@Localizer["Race"]</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["RaceSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@Localizer["Race"]</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["SexSortParm"]">@Localizer["Sex"]</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["SexSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@Localizer["Sex"]</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["BirthdaySortParm"]">@Localizer["Birthday"]</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["BirthdaySortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@Localizer["Birthday"]</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["RewardMoneySortParm"]">@Localizer["Reward Money"]</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["RewardMoneySortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@Localizer["Reward Money"]</a>
             </th>
         </tr>
     </thead>
@@ -61,20 +74,38 @@
     </tbody>
 </table>
 
-<div class="btn-toolbar" role="toolbar" aria-label="Page">
-    @for (int i = 0; i < Model.TotalPages; i++)
-    {
-        @:<div class="btn-group" role="group">i</div>
-    }
-</div>
-
 @{
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 }
-<a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-page="@(Model.PageIndex - 1)" class="btn btn-default @prevDisabled">
+<a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-page="@(Model.PageIndex - 1)" 
+   class="btn btn-default @prevDisabled">
     <span class="glyphicon glyphicon-chevron-left"></span>@Localizer["Previous"]
 </a>
-<a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-page="@(Model.PageIndex + 1)" class="btn btn-default @nextDisabled">
+<a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-page="@(Model.PageIndex + 1)" 
+   class="btn btn-default @nextDisabled">
     @Localizer["Next"]<span class="glyphicon glyphicon-chevron-right"></span>
 </a>
+
+<div class="btn-group" role="group">
+    @{
+        for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            if (i == Model.PageIndex)
+            {
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-page="@i" class="btn btn-success">
+                    @i
+                </a>
+            }
+            else
+            {
+                //@引用C#代码
+                //@:引用html代码
+                //Razor自身代码就不需要@了，例如<a asp-action...
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-page="@i" class="btn btn-default">
+                    @i
+                </a>
+            }
+        }
+    }
+</div>

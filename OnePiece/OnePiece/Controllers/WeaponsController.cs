@@ -27,11 +27,20 @@ namespace OnePiece.Controllers
         }
 
         // GET: Weapons
-        public async Task<IActionResult> Index(string sortOrder, int? page)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            searchString = searchString ?? currentFilter;
+            ViewData["CurrentFilter"] = searchString;
+            
             var weapons = from w in _context.Weapons select w;
+            // Search
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                weapons = weapons.Where(w => w.Name.Contains(searchString));
+            }
+            // Order
             switch (sortOrder)
             {
                 case "name_desc":

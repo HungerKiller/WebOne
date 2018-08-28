@@ -29,7 +29,7 @@ namespace OnePiece.Controllers
         }
 
         // GET: Person
-        public async Task<IActionResult> Index(string sortOrder, int? page)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -37,7 +37,16 @@ namespace OnePiece.Controllers
             ViewData["SexSortParm"] = sortOrder == "sex_asc" ? "sex_desc" : "sex_asc";
             ViewData["BirthdaySortParm"] = sortOrder == "birthday_asc" ? "birthday_desc" : "birthday_asc";
             ViewData["RewardMoneySortParm"] = sortOrder == "money_asc" ? "money_desc" : "money_asc";
+            searchString = searchString ?? currentFilter;
+            ViewData["CurrentFilter"] = searchString;
+
             var persons = from p in _context.Persons select p;
+            // Search
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                persons = persons.Where(p => p.Name.Contains(searchString));
+            }
+            // Order
             switch (sortOrder)
             {
                 case "name_desc":
