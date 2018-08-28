@@ -59,3 +59,26 @@
 <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-page="@(Model.PageIndex + 1)" class="btn btn-default @nextDisabled">
     @Localizer["Next"]<span class="glyphicon glyphicon-chevron-right"></span>
 </a>
+
+<div class="btn-group" role="group">
+    @{
+        for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            if (i == Model.PageIndex)
+            {
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-page="@i" class="btn btn-success">
+                    @i
+                </a>
+            }
+            else
+            {
+                //@引用C#代码
+                //@:引用html代码
+                //Razor自身代码就不需要@了，例如<a asp-action...
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-page="@i" class="btn btn-default">
+                    @i
+                </a>
+            }
+        }
+    }
+</div>
