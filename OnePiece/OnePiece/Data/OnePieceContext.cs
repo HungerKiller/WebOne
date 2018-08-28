@@ -20,6 +20,7 @@ namespace OnePiece.Data
         public DbSet<PirateGroup> PirateGroups { get; set; }
         public DbSet<FruitPossession> FruitPossessions { get; set; }
         public DbSet<WeaponPossession> WeaponPossessions { get; set; }
+        public DbSet<Setting> Settings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +30,7 @@ namespace OnePiece.Data
             modelBuilder.Entity<PirateGroup>().ToTable("PirateGroup");
             modelBuilder.Entity<FruitPossession>().ToTable("FruitPossession");
             modelBuilder.Entity<WeaponPossession>().ToTable("WeaponPossession");
+            modelBuilder.Entity<Setting>().ToTable("Setting");
 
             // Fluent API 方式制定主键
             modelBuilder.Entity<FruitPossession>()
