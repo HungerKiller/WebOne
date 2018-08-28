@@ -22,46 +22,8 @@ namespace OnePiece.Controllers
         // GET: Settings
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Settings.ToListAsync());
-        }
-
-        // GET: Settings/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var setting = await _context.Settings
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (setting == null)
-            {
-                return NotFound();
-            }
-
-            return View(setting);
-        }
-
-        // GET: Settings/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Settings/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FruitCountPerPage,WeaponCountPerPage,PirateGroupCountPerPage,PersonCountPerPage")] Setting setting)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(setting);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+            var settings = await _context.Settings.ToListAsync();
+            var setting = settings.FirstOrDefault();
             return View(setting);
         }
 
@@ -114,35 +76,6 @@ namespace OnePiece.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(setting);
-        }
-
-        // GET: Settings/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var setting = await _context.Settings
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (setting == null)
-            {
-                return NotFound();
-            }
-
-            return View(setting);
-        }
-
-        // POST: Settings/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var setting = await _context.Settings.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Settings.Remove(setting);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool SettingExists(int id)

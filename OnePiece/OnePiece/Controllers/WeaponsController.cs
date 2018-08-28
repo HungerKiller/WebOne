@@ -50,7 +50,7 @@ namespace OnePiece.Controllers
                     weapons = weapons.OrderBy(w => w.Name);
                     break;
             }
-            int pageSize = 13;
+            int pageSize = _context.Settings.FirstOrDefault().WeaponCountPerPage; ;
             return View(await PaginatedList<Weapon>.CreateAsync(weapons.AsNoTracking(), page ?? 1, pageSize));
         }
 

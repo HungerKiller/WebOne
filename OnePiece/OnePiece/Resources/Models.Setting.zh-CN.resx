@@ -117,22 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Fruits" xml:space="preserve">
-    <value>Fruits</value>
+  <data name="Fruit Count Per Page" xml:space="preserve">
+    <value>恶魔果实每页显示数目</value>
   </data>
-  <data name="One Piece" xml:space="preserve">
-    <value>One Piece</value>
+  <data name="Person Count Per Page" xml:space="preserve">
+    <value>人物每页显示数目</value>
   </data>
-  <data name="Persons" xml:space="preserve">
-    <value>Persons</value>
+  <data name="Pirate Group Count Per Page" xml:space="preserve">
+    <value>海贼团每页显示数目</value>
   </data>
-  <data name="Pirate Groups" xml:space="preserve">
-    <value>Pirate Groups</value>
+  <data name="The field 'Fruit Count Per Page' must be between 3 and 100." xml:space="preserve">
+    <value>恶魔果实每页显示数目取值必须在3到100之间。</value>
   </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+  <data name="The field 'Person Count Per Page' must be between 3 and 100." xml:space="preserve">
+    <value>人物每页显示数目取值必须在3到100之间。</value>
   </data>
-  <data name="Weapons" xml:space="preserve">
-    <value>Weapons</value>
+  <data name="The field 'Pirate Group Count Per Page' must be between 3 and 100." xml:space="preserve">
+    <value>海贼团每页显示数目取值必须在3到100之间。</value>
+  </data>
+  <data name="The field 'Weapon Count Per Page' must be between 3 and 100." xml:space="preserve">
+    <value>武器每页显示数目取值必须在3到100之间。</value>
+  </data>
+  <data name="Weapon Count Per Page" xml:space="preserve">
+    <value>武器每页显示数目</value>
   </data>
 </root>

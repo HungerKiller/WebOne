@@ -1,15 +1,17 @@
 ﻿@model OnePiece.Models.Setting
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = @Localizer["Edit"];
 }
 
-<h2>Edit</h2>
-
-<h4>Setting</h4>
+<h2>@ViewData["Title"]</h2>
+<h4>@Localizer["Setting"]</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-xs-6 col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
@@ -34,14 +36,11 @@
                 <span asp-validation-for="PersonCountPerPage" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <button type="submit" value="Save" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> @Localizer["Save"]</button>
+                <a asp-action="Index" class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span> @Localizer["Return"]</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

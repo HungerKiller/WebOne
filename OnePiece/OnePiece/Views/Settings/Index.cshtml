@@ -1,53 +1,37 @@
-﻿@model IEnumerable<OnePiece.Models.Setting>
+﻿@model OnePiece.Models.Setting
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = @Localizer["Setting"];
 }
 
-<h2>Index</h2>
+<h2>@ViewData["Title"]</h2>
+<hr/>
+<div class="row">
+    <div class="col-xs-6 col-md-4">
+        <table class="table">
+            <tr>
+                <td style="font-weight:bold">@Html.DisplayNameFor(model => model.FruitCountPerPage)</td>
+                <td>@Html.DisplayFor(model => model.FruitCountPerPage)</td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold">@Html.DisplayNameFor(model => model.WeaponCountPerPage)</td>
+                <td>@Html.DisplayFor(model => model.WeaponCountPerPage)</td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold">@Html.DisplayNameFor(model => model.PirateGroupCountPerPage)</td>
+                <td>@Html.DisplayFor(model => model.PirateGroupCountPerPage)</td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold">@Html.DisplayNameFor(model => model.PersonCountPerPage)</td>
+                <td>@Html.DisplayFor(model => model.PersonCountPerPage)</td>
+            </tr>
+        </table>
+    </div>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.FruitCountPerPage)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.WeaponCountPerPage)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PirateGroupCountPerPage)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PersonCountPerPage)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FruitCountPerPage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WeaponCountPerPage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PirateGroupCountPerPage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PersonCountPerPage)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> @Localizer["Edit"]</a>
+</div>

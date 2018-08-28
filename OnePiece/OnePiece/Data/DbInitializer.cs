@@ -100,7 +100,12 @@ namespace OnePiece.Data
                 person.WeaponPossessions.Add(new WeaponPossession { PersonID = person.Id, WeaponID = weapon.Id });
                 context.SaveChanges();
             }
-            
+            // Add Setting
+            if (!context.Settings.Any())
+            {
+                context.Settings.Add(new Setting { FruitCountPerPage = 10, WeaponCountPerPage = 10, PirateGroupCountPerPage = 10, PersonCountPerPage = 10 });
+                context.SaveChanges();
+            }
         }
 
         private static List<Fruit> GetFruitsFromFile(string filePath)

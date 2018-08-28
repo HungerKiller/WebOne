@@ -80,7 +80,7 @@ namespace OnePiece.Controllers
                     persons = persons.OrderBy(p => p.Name);
                     break;
             }
-            int pageSize = 13;
+            int pageSize = _context.Settings.FirstOrDefault().PersonCountPerPage; ;
             return View(await PaginatedList<Person>.CreateAsync(persons.AsNoTracking(), page ?? 1, pageSize));
         }
 

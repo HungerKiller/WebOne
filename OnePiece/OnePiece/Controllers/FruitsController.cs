@@ -57,7 +57,7 @@ namespace OnePiece.Controllers
                     fruits = fruits.OrderBy(f => f.Name);
                     break;
             }
-            int pageSize = 13;
+            int pageSize = _context.Settings.FirstOrDefault().FruitCountPerPage;
             return View(await PaginatedList<Fruit>.CreateAsync(fruits.AsNoTracking(), page ?? 1, pageSize));
         }
 

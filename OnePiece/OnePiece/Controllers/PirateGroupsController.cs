@@ -52,7 +52,7 @@ namespace OnePiece.Controllers
                     pirateGroups = pirateGroups.OrderBy(pg => pg.Name);
                     break;
             }
-            int pageSize = 13;
+            int pageSize = _context.Settings.FirstOrDefault().PirateGroupCountPerPage; ;
             return View(await PaginatedList<PirateGroup>.CreateAsync(pirateGroups.AsNoTracking(), page ?? 1, pageSize));
         }
 
