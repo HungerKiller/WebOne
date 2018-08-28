@@ -38,9 +38,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <button type="submit" value="Delete" class="btn btn-danger"><span class="glyphicon glyphicon-ok"></span> @Localizer["Delete"]</button>
-    </form>
-    <br />
-    <form asp-action="Index">
-        <button class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span> @Localizer["Back to List"]</button>
+        <a asp-action="Index" class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span> @Localizer["Back to List"]</a>
     </form>
 </div>
