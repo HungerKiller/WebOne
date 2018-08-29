@@ -21,4 +21,13 @@
     <Folder Include="Documents\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\css\custom.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\css\site.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
