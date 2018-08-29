@@ -74,6 +74,7 @@ namespace OnePiece.Models
         /// </summary>
         public Title Title { get; set; }
 
+        [Display(Name = "Pirate Group")]
         // 知识点1：默认情况下，含有成员object PirateGroup，EF就会自动创建PirateGroupID。这里显式的创建成员int PirateGroupID，就是为了更方便的使用
         // 知识点2：WeaponPossession里，插入Id和object就可以，但是这里就会出错
         // "The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_Person_PirateGroup_PirateGroupID\". The conflict occurred in database \"OnePiece\", table \"dbo.PirateGroup\", column 'PirateGroupID'.\r\nThe statement has been terminated."
