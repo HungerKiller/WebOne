@@ -11,8 +11,8 @@
 <h4>@Localizer["Pirate Group"]</h4>
 <hr />
 <div class="row">
-    <div class="col-xs-6 col-md-4">
-        <form method="post" enctype="multipart/form-data" asp-action="Edit">
+    <form method="post" enctype="multipart/form-data" asp-action="Edit">
+        <div class="col-xs-6 col-md-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -33,18 +33,29 @@
             <div class="form-group">
                 <label>@Localizer["Upload image"]</label>
                 <input id="uploadfile" type="file" name="files" class="form-control" />
-                <p style="color:darkred">@ViewBag.WrongExtension</p>
+                <p class="text-danger">@ViewBag.WrongExtension</p>
             </div>
+        </div>
+        <div class="col-xs-12 col-md-8">
+            <div style="text-align:center">
+                @*直接获取Model的成员,需要使用大写的Model*@
+                <img id="img" src="~/@Model.ImagePath" alt="" style="max-width:800px">
+            </div>
+        </div>
+        <div class="col-xs-18 col-md-12">
             <div class="form-group">
-                <label>@Localizer["Choose persons"]</label>
-                <table class="table">
+                <button class="showPersonList btn btn-default" data-toggle="dropdown">
+                    @Localizer["Choose persons"]
+                    <span class="caret"></span>
+                </button>
+                <table class="table personList" style="display:none">
                     <tr>
                         @{
                             int cnt = 0;
                             List<OnePiece.ViewModels.AssignedPerson> persons = ViewBag.Persons;
                             foreach (var person in persons)
                             {
-                                if (cnt++ % 4 == 0)
+                                if (cnt++ % 6 == 0)
                                 {
                                 @:</tr><tr>
                                 }
@@ -56,18 +67,14 @@
                     </tr>
                 </table>
             </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
             <div class="form-group">
                 <button type="submit" value="Save" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> @Localizer["Save"]</button>
                 <a asp-action="Index" class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span> @Localizer["Back to List"]</a>
             </div>
-        </form>
-    </div>
-    <div class="col-xs-12 col-md-8">
-        <div style="text-align:center">
-            @*直接获取Model的成员,需要使用大写的Model*@
-            <img id="img" src="~/@Model.ImagePath" alt="" style="max-width:800px">
         </div>
-    </div>
+    </form>
 </div>
 
 @section Scripts {
@@ -85,6 +92,10 @@
                 }
                 reader.readAsDataURL(file);
             }
+        })
+
+        $(".showPersonList").click(function () {
+            $(".personList").toggle(100, "linear");
         })
     })
 </script>

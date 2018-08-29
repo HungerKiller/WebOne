@@ -11,8 +11,8 @@
 <h4>@Localizer["Person"]</h4>
 <hr />
 <div class="row">
-    <div class="col-xs-6 col-md-4">
-        <form method="post" enctype="multipart/form-data" asp-action="Create">
+    <form method="post" enctype="multipart/form-data" asp-action="Create">
+        <div class="col-xs-6 col-md-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -71,11 +71,21 @@
             <div class="form-group">
                 <label>@Localizer["Upload image"]</label>
                 <input id="uploadfile" type="file" name="files" class="form-control" />
-                <p style="color:darkred">@ViewBag.WrongExtension</p>
+                <p class="text-danger">@ViewBag.WrongExtension</p>
             </div>
+        </div>
+        <div class="col-xs-12 col-md-8">
+            <div style="text-align:center">
+                <img id="img" src="" alt="" style="max-width:800px">
+            </div>
+        </div>
+        <div class="col-xs-18 col-md-12">
             <div class="form-group">
-                <label>@Localizer["Choose fruits"]</label>
-                <table class="table">
+                <button class="showFruitList btn btn-default" data-toggle="dropdown">
+                    @Localizer["Choose fruits"]
+                    <span class="caret"></span>
+                </button>
+                <table class="table fruitList" style="display:none">
                     <tr>
                         @{
                             int countFruit = 0;
@@ -95,8 +105,11 @@
                 </table>
             </div>
             <div class="form-group">
-                <label>@Localizer["Choose weapons"]</label>
-                <table class="table">
+                <button class="showWeaponList btn btn-default" data-toggle="dropdown">
+                    @Localizer["Choose weapons"]
+                    <span class="caret"></span>
+                </button>
+                <table class="table weaponList" style="display:none">
                     <tr>
                         @{
                             int countWeapon = 0;
@@ -115,17 +128,14 @@
                     </tr>
                 </table>
             </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
             <div class="form-group">
                 <button type="submit" value="Create" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> @Localizer["Create"]</button>
                 <a asp-action="Index" class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span> @Localizer["Back to List"]</a>
             </div>
-        </form>
-    </div>
-    <div class="col-xs-12 col-md-8">
-        <div style="text-align:center">
-            <img id="img" src="" alt="" style="max-width:800px">
         </div>
-    </div>
+    </form>
 </div>
 
 @section Scripts {
@@ -143,6 +153,14 @@
                 }
                 reader.readAsDataURL(file);
             }
+        })
+
+        $(".showFruitList").click(function () {
+            $(".fruitList").toggle(100, "linear");
+        })
+
+        $(".showWeaponList").click(function () {
+            $(".weaponList").toggle(100, "linear");
         })
     })
 </script>

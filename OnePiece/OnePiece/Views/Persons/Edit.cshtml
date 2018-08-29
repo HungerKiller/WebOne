@@ -11,8 +11,8 @@
 <h4>@Localizer["Person"]</h4>
 <hr />
 <div class="row">
-    <div class="col-xs-6 col-md-4">
-        <form method="post" enctype="multipart/form-data" asp-action="Edit">
+    <form method="post" enctype="multipart/form-data" asp-action="Edit">
+        <div class="col-xs-6 col-md-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -76,18 +76,29 @@
             <div class="form-group">
                 <label>@Localizer["Upload image"]</label>
                 <input id="uploadfile" type="file" name="files" class="form-control" />
-                <p style="color:darkred">@ViewBag.WrongExtension</p>
+                <p class="text-danger">@ViewBag.WrongExtension</p>
             </div>
+        </div>
+        <div class="col-xs-12 col-md-8">
+            <div style="text-align:center">
+                @*直接获取Model的成员,需要使用大写的Model*@
+                <img id="img" src="~/@Model.ImagePath" alt="" style="max-width:800px">
+            </div>
+        </div>
+        <div class="col-xs-18 col-md-12">
             <div class="form-group">
-                <label>@Localizer["Choose fruits"]</label>
-                <table class="table">
+                <button class="showFruitList btn btn-default" data-toggle="dropdown">
+                    @Localizer["Choose fruits"]
+                    <span class="caret"></span>
+                </button>
+                <table class="table fruitList" style="display:none">
                     <tr>
                         @{
                             int cnt = 0;
                             List<OnePiece.ViewModels.AssignedFruit> fruits = ViewBag.Fruits;
                             foreach (var fruit in fruits)
                             {
-                                if (cnt++ % 4 == 0)
+                                if (cnt++ % 6 == 0)
                                 {
                                 @:</tr><tr>
                                 }
@@ -100,15 +111,18 @@
                 </table>
             </div>
             <div class="form-group">
-                <label>@Localizer["Choose weapons"]</label>
-                <table class="table">
+                <button class="showWeaponList btn btn-default" data-toggle="dropdown">
+                    @Localizer["Choose weapons"]
+                    <span class="caret"></span>
+                </button>
+                <table class="table weaponList" style="display:none">
                     <tr>
                         @{
                             int countWeapon = 0;
                             List<OnePiece.ViewModels.AssignedWeapon> weapons = ViewBag.Weapons;
                             foreach (var weapon in weapons)
                             {
-                                if (countWeapon++ % 4 == 0)
+                                if (countWeapon++ % 6 == 0)
                                 {
                                 @:</tr><tr>
                                 }
@@ -120,18 +134,14 @@
                     </tr>
                 </table>
             </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
             <div class="form-group">
                 <button type="submit" value="Save" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> @Localizer["Save"]</button>
                 <a asp-action="Index" class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span> @Localizer["Back to List"]</a>
             </div>
-        </form>
-    </div>
-    <div class="col-xs-12 col-md-8">
-        <div style="text-align:center">
-            @*直接获取Model的成员,需要使用大写的Model*@
-            <img id="img" src="~/@Model.ImagePath" alt="" style="max-width:800px">
         </div>
-    </div>
+    </form>
 </div>
 
 @section Scripts {
@@ -149,6 +159,14 @@
                 }
                 reader.readAsDataURL(file);
             }
+        })
+
+        $(".showFruitList").click(function () {
+            $(".fruitList").toggle(100, "linear");
+        })
+
+        $(".showWeaponList").click(function () {
+            $(".weaponList").toggle(100, "linear");
         })
     })
 </script>
