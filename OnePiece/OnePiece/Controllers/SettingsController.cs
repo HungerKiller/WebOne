@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OnePiece.Data;
 using OnePiece.Models;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.IO;
+using Newtonsoft.Json.Converters;
 
 namespace OnePiece.Controllers
 {
@@ -78,9 +82,40 @@ namespace OnePiece.Controllers
             return View(setting);
         }
 
+        public async Task<IActionResult> Export()
+        {
+            Readjson();
+            Writejson();
+            ViewData["Export"] = "Export Finished!";
+            return RedirectToAction(nameof(Index));
+        }
+
+        public void Writejson()
+        {
+            string jsonFilePath = "test.json";
+            using (StreamWriter sw = new StreamWriter(jsonFilePath))
+            {
+                string jsonPirateGroups = JsonConvert.SerializeObject(_context.PirateGroups.ToList());
+                sw.WriteLine(jsonPirateGroups);
+                // TODO serializer one object by one object? How to break line?
+            }
+        }
+
+        public void Readjson()
+        {
+            string jsonFilePath = "test.json";
+            string jsonPirateGroups = null;
+            using (StreamReader sr = new StreamReader(jsonFilePath))
+            {
+                jsonPirateGroups = sr.ReadToEnd();
+            }
+            List<PirateGroup> groups = JsonConvert.DeserializeObject<List<PirateGroup>>(jsonPirateGroups);
+        }
+
         private bool SettingExists(int id)
         {
             return _context.Settings.Any(e => e.Id == id);
         }
+
     }
 }
