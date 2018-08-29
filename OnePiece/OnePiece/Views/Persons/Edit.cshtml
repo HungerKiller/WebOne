@@ -33,7 +33,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="RewardMoney" class="control-label"></label>
-                <input asp-for="RewardMoney" class="form-control" />
+                <input asp-for="RewardMoney" class="form-control" value="@string.Format("{0:N}", Model.RewardMoney)" />
                 <span asp-validation-for="RewardMoney" class="text-danger"></span>
             </div>
             <div class="form-group">
