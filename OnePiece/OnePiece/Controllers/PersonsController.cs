@@ -91,7 +91,6 @@ namespace OnePiece.Controllers
             {
                 return NotFound();
             }
-            // TODO include GroupPossessions
             var person = await _context.Persons.AsNoTracking()
                 .Include(p => p.FruitPossessions).ThenInclude(fp => fp.Fruit)
                 .Include(p => p.WeaponPossessions).ThenInclude(wp => wp.Weapon)

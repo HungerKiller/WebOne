@@ -9,10 +9,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 6,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "罗罗诺亚·索隆",
@@ -24,10 +21,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 6,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "娜美",
@@ -39,10 +33,7 @@
     "Sex": 1,
     "FeatureType": 2,
     "Title": 6,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "乌索普",
@@ -54,10 +45,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 6,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "文斯莫克·山治",
@@ -69,10 +57,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 6,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "托尼托尼·乔巴",
@@ -84,10 +69,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 6,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "妮可·罗宾",
@@ -99,10 +81,7 @@
     "Sex": 1,
     "FeatureType": 2,
     "Title": 6,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "弗兰奇",
@@ -114,10 +93,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 6,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "布鲁克",
@@ -129,10 +105,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 6,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "甚平",
@@ -143,11 +116,8 @@
     "Race": 1,
     "Sex": 0,
     "FeatureType": 2,
-    "Title": 6,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "Title": 4,
+    "ImagePath": null
   },
   {
     "Name": "特拉法尔加·罗",
@@ -158,11 +128,8 @@
     "Race": 0,
     "Sex": 0,
     "FeatureType": 2,
-    "Title": 0,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "Title": 4,
+    "ImagePath": null
   },
   {
     "Name": "乔拉可尔·密佛格",
@@ -174,10 +141,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 4,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "唐吉诃德·多弗朗明哥",
@@ -189,10 +153,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 4,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "巴索罗米·熊",
@@ -204,10 +165,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 4,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "波雅·汉库克",
@@ -219,10 +177,7 @@
     "Sex": 1,
     "FeatureType": 2,
     "Title": 4,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "沙·克洛克达尔",
@@ -234,14 +189,11 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 4,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "月光·莫利亚",
-    "Nickname": "",
+    "Nickname": null,
     "Description": "被路飞打败的七武海之一。拥有夺取别人影子的能力。曾在“新世界”和凯多发生过大战。与草帽海贼团激战后败北。",
     "RewardMoney": 3.2E+08,
     "Birthday": "0001-01-01T00:00:00",
@@ -249,10 +201,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 4,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "巴基",
@@ -264,10 +213,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 4,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "爱德华·威布尔",
@@ -279,10 +225,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 4,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "爱德华·纽盖特",
@@ -294,10 +237,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 3,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "香克斯",
@@ -309,10 +249,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 3,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "凯多",
@@ -324,10 +261,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 3,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "马歇尔·D·蒂奇",
@@ -339,10 +273,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 3,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "夏洛特·玲玲",
@@ -354,10 +285,7 @@
     "Sex": 1,
     "FeatureType": 2,
     "Title": 3,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "萨卡斯基",
@@ -369,10 +297,7 @@
     "Sex": 0,
     "FeatureType": 1,
     "Title": 2,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "波鲁萨利诺",
@@ -384,10 +309,7 @@
     "Sex": 0,
     "FeatureType": 1,
     "Title": 1,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "库赞",
@@ -399,10 +321,7 @@
     "Sex": 0,
     "FeatureType": 1,
     "Title": 1,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "哥尔·d·罗杰",
@@ -414,10 +333,7 @@
     "Sex": 0,
     "FeatureType": 2,
     "Title": 5,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "波特卡斯·D·艾斯",
@@ -428,11 +344,8 @@
     "Race": 0,
     "Sex": 0,
     "FeatureType": 2,
-    "Title": 0,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "Title": 6,
+    "ImagePath": null
   },
   {
     "Name": "蒙奇·D·卡普",
@@ -444,10 +357,7 @@
     "Sex": 0,
     "FeatureType": 1,
     "Title": 0,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "ImagePath": null
   },
   {
     "Name": "蒙其·D·多拉格",
@@ -458,11 +368,8 @@
     "Race": 0,
     "Sex": 0,
     "FeatureType": 3,
-    "Title": 0,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "Title": 6,
+    "ImagePath": null
   },
   {
     "Name": "萨博",
@@ -473,11 +380,8 @@
     "Race": 0,
     "Sex": 0,
     "FeatureType": 3,
-    "Title": 0,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "Title": 6,
+    "ImagePath": null
   },
   {
     "Name": "马尔科",
@@ -488,10 +392,7 @@
     "Race": 0,
     "Sex": 0,
     "FeatureType": 2,
-    "Title": 0,
-    "PirateGroup": null,
-    "ImagePath": null,
-    "FruitPossessions": null,
-    "WeaponPossessions": null
+    "Title": 6,
+    "ImagePath": null
   }
 ]

@@ -22,6 +22,21 @@
                 <td class="title">@Html.DisplayNameFor(model => model.Description)</td>
                 <td>@Html.DisplayFor(model => model.Description)</td>
             </tr>
+            <tr>
+                <td class="title">@Html.DisplayNameFor(model => model.WeaponPossessions)</td>
+                <td>
+                    <ul>
+                        @{
+                            foreach (var person in Model.WeaponPossessions.Select(wp => wp.Person))
+                            {
+                                @:<li>
+                                    <a asp-controller="Persons" asp-action="Details" asp-route-id="@person.Id"> @person.Name</a>
+                                @:</li>
+                            }
+                        }
+                    </ul>
+                </td>
+            </tr>
         </table>
     </div>
     <div class="col-xs-12 col-md-8">

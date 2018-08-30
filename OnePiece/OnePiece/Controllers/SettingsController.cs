@@ -82,25 +82,6 @@ namespace OnePiece.Controllers
             return View(setting);
         }
 
-        public async Task<IActionResult> Export()
-        {
-            WriteJson("Fruits.json", _context.Fruits.ToList().Cast<object>().ToList());
-            WriteJson("Weapons.json", _context.Weapons.ToList().Cast<object>().ToList());
-            WriteJson("PirateGroups.json", _context.PirateGroups.ToList().Cast<object>().ToList());
-            WriteJson("Persons.json", _context.Persons.ToList().Cast<object>().ToList());
-            ViewData["Export"] = "Export Finished!";
-            return RedirectToAction(nameof(Index));
-        }
-
-        public static void WriteJson(string jsonFilePath, List<object> items)
-        {
-            using (StreamWriter sw = new StreamWriter(jsonFilePath))
-            {
-                JArray jArray = (JArray)JToken.FromObject(items);
-                sw.Write(jArray.ToString());
-            }
-        }
-
         private bool SettingExists(int id)
         {
             return _context.Settings.Any(e => e.Id == id);

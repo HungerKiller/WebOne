@@ -69,7 +69,8 @@ namespace OnePiece.Controllers
                 return NotFound();
             }
 
-            var fruit = await _context.Fruits.AsNoTracking().SingleOrDefaultAsync(m => m.Id == id);
+            var fruit = await _context.Fruits.AsNoTracking().Include(f => f.FruitPossessions).ThenInclude(fp => fp.Person)
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (fruit == null)
             {
                 return NotFound();

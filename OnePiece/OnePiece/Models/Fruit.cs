@@ -47,6 +47,7 @@ namespace OnePiece.Models
         /// </summary>
         public string ImagePath { get; set; }
 
+        [Display(Name = "Owner")]
         [JsonIgnore]
         // Person中也有这个字段，这是Person与Fruit的多对多关系。
         // 只要管理好Person里边的FruitPossessions，这里的FruitPossessions是被EF自动更新的。

@@ -34,6 +34,7 @@ namespace OnePiece.Models
         /// </summary>
         public string ImagePath { get; set; }
 
+        [Display(Name = "Owner")]
         [JsonIgnore]
         public ICollection<WeaponPossession> WeaponPossessions { get; set; }
     }

@@ -89,6 +89,7 @@ namespace OnePiece.Models
         public int? PirateGroupID { get; set; }
 
         [Display(Name = "Pirate Group")]
+        [JsonIgnore]
         /// <summary>
         /// 海贼团
         /// </summary>
@@ -101,12 +102,14 @@ namespace OnePiece.Models
         public string ImagePath { get; set; }
 
         [Display(Name = "Fruits")]
+        [JsonIgnore]
         /// <summary>
         /// 一个人可以有多个果实
         /// </summary>
         public ICollection<FruitPossession> FruitPossessions { get; set; }
 
         [Display(Name = "Weapons")]
+        [JsonIgnore]
         /// <summary>
         /// 武器。一个人可以有多个武器
         /// </summary>

@@ -123,6 +123,9 @@
   <data name="Name" xml:space="preserve">
     <value>名称</value>
   </data>
+  <data name="Owner" xml:space="preserve">
+    <value>拥有者</value>
+  </data>
   <data name="The Name field is required." xml:space="preserve">
     <value>名称是必填项。</value>
   </data>

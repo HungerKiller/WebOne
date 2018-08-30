@@ -62,7 +62,8 @@ namespace OnePiece.Controllers
                 return NotFound();
             }
 
-            var weapon = await _context.Weapons.AsNoTracking().SingleOrDefaultAsync(m => m.Id == id);
+            var weapon = await _context.Weapons.AsNoTracking().Include(w => w.WeaponPossessions).ThenInclude(wp => wp.Person)
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (weapon == null)
             {
                 return NotFound();
