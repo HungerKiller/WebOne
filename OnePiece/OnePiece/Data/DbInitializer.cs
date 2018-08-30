@@ -1,4 +1,6 @@
-﻿using OnePiece.Models;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using OnePiece.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +13,11 @@ namespace OnePiece.Data
     {
         public static void Initialize(OnePieceContext context)
         {
+            WriteJson("Fruits.json", context.Fruits.ToList().Cast<object>().ToList());
+            WriteJson("Weapons.json", context.Weapons.ToList().Cast<object>().ToList());
+            WriteJson("PirateGroups.json", context.PirateGroups.ToList().Cast<object>().ToList());
+            WriteJson("Persons.json", context.Persons.ToList().Cast<object>().ToList());
+
             context.Database.EnsureCreated();
             // Fruits
             if (!context.Fruits.Any())
@@ -174,7 +181,8 @@ namespace OnePiece.Data
                     Enum.TryParse(array[6], out FeatureType featureType);
                     Enum.TryParse(array[7], out Title title);
 
-                    persons.Add(new Person {
+                    persons.Add(new Person
+                    {
                         Name = array[0],
                         Nickname = array[1],
                         RewardMoney = rewardMoney,
@@ -189,5 +197,63 @@ namespace OnePiece.Data
             }
             return persons;
         }
+
+
+        #region Helper
+
+        public static void WriteJson(string jsonFilePath, List<object> items)
+        {
+            using (StreamWriter sw = new StreamWriter(jsonFilePath))
+            {
+                JArray jArray = (JArray)JToken.FromObject(items);
+                sw.Write(jArray.ToString());
+            }
+        }
+
+        public static List<PirateGroup> ReadPirateGroupFromJson(string jsonFilePath)
+        {
+            string jsonPirateGroups = null;
+            using (StreamReader sr = new StreamReader(jsonFilePath))
+            {
+                jsonPirateGroups = sr.ReadToEnd();
+            }
+            List<PirateGroup> groups = JsonConvert.DeserializeObject<List<PirateGroup>>(jsonPirateGroups);
+            return groups;
+        }
+
+        public static List<Weapon> ReadWeaponFromJson(string jsonFilePath)
+        {
+            string jsonWeapons = null;
+            using (StreamReader sr = new StreamReader(jsonFilePath))
+            {
+                jsonWeapons = sr.ReadToEnd();
+            }
+            List<Weapon> weapons = JsonConvert.DeserializeObject<List<Weapon>>(jsonWeapons);
+            return weapons;
+        }
+
+        public static List<Fruit> ReadFruitFromJson(string jsonFilePath)
+        {
+            string jsonFruits = null;
+            using (StreamReader sr = new StreamReader(jsonFilePath))
+            {
+                jsonFruits = sr.ReadToEnd();
+            }
+            List<Fruit> fruits = JsonConvert.DeserializeObject<List<Fruit>>(jsonFruits);
+            return fruits;
+        }
+
+        public static List<Person> ReadPersonFromJson(string jsonFilePath)
+        {
+            string jsonPersons = null;
+            using (StreamReader sr = new StreamReader(jsonFilePath))
+            {
+                jsonPersons = sr.ReadToEnd();
+            }
+            List<Person> persons = JsonConvert.DeserializeObject<List<Person>>(jsonPersons);
+            return persons;
+        }
+
+        #endregion Helper
     }
 }

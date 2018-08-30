@@ -84,26 +84,42 @@ namespace OnePiece.Controllers
 
         public async Task<IActionResult> Export()
         {
-            Readjson();
-            Writejson();
+            Writejson("Fruits.json", _context.Fruits.ToList().Cast<object>().ToList());
+            Writejson("Weapons.json", _context.Weapons.ToList().Cast<object>().ToList());
+            Writejson("PirateGroups.json", _context.PirateGroups.ToList().Cast<object>().ToList());
+            Writejson("Persons.json", _context.Persons.ToList().Cast<object>().ToList());
             ViewData["Export"] = "Export Finished!";
             return RedirectToAction(nameof(Index));
         }
 
-        public void Writejson()
+        public void Writejson(string jsonFilePath, List<object> items)
         {
-            string jsonFilePath = "test.json";
             using (StreamWriter sw = new StreamWriter(jsonFilePath))
             {
-                string jsonPirateGroups = JsonConvert.SerializeObject(_context.PirateGroups.ToList());
-                sw.WriteLine(jsonPirateGroups);
-                // TODO serializer one object by one object? How to break line?
+                //直接序列化List变为string,把string写入文件,这样得到的json只有一行
+                //string jsonPirateGroups = JsonConvert.SerializeObject(_context.PirateGroups.ToList());
+                //sw.WriteLine(jsonPirateGroups);
+                //序列化一个Object为JObject,再把JObject写入文件,这样得到的json是分行的,更美观
+                bool isFirstItem = true;
+                foreach (var item in items)
+                {
+                    if (isFirstItem)
+                    {
+                        sw.WriteLine("[");
+                        isFirstItem = false;
+                    }
+                    else
+                        sw.WriteLine(",");
+                    JObject jObject = JObject.FromObject(item);
+                    sw.Write(jObject.ToString());
+                }
+                sw.WriteLine("");
+                sw.WriteLine("]");
             }
         }
 
-        public void Readjson()
+        public void Readjson(string jsonFilePath)
         {
-            string jsonFilePath = "test.json";
             string jsonPirateGroups = null;
             using (StreamReader sr = new StreamReader(jsonFilePath))
             {
