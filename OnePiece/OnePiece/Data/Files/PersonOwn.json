@@ -1,0 +1,254 @@
+[
+  {
+    "PersonName": "蒙奇·D·路飞",
+    "OwnedFruitNames": [
+      "橡胶果实"
+    ],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": "草帽海贼团"
+  },
+  {
+    "PersonName": "罗罗诺亚·索隆",
+    "OwnedFruitNames": [],
+    "OwnedWeaponNames": [
+      "和道一文字",
+      "黑刀秋水",
+      "雪走",
+      "三代鬼彻"
+    ],
+    "PirateGroupName": "草帽海贼团"
+  },
+  {
+    "PersonName": "娜美",
+    "OwnedFruitNames": [],
+    "OwnedWeaponNames": [
+      "天侯棒"
+    ],
+    "PirateGroupName": "草帽海贼团"
+  },
+  {
+    "PersonName": "乌索普",
+    "OwnedFruitNames": [],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": "草帽海贼团"
+  },
+  {
+    "PersonName": "文斯莫克·山治",
+    "OwnedFruitNames": [],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": "草帽海贼团"
+  },
+  {
+    "PersonName": "托尼托尼·乔巴",
+    "OwnedFruitNames": [
+      "人人果实"
+    ],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": "草帽海贼团"
+  },
+  {
+    "PersonName": "妮可·罗宾",
+    "OwnedFruitNames": [
+      "花花果实"
+    ],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": "草帽海贼团"
+  },
+  {
+    "PersonName": "弗兰奇",
+    "OwnedFruitNames": [],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": "草帽海贼团"
+  },
+  {
+    "PersonName": "布鲁克",
+    "OwnedFruitNames": [
+      "黄泉果实"
+    ],
+    "OwnedWeaponNames": [
+      "丧魂之剑"
+    ],
+    "PirateGroupName": "草帽海贼团"
+  },
+  {
+    "PersonName": "甚平",
+    "OwnedFruitNames": [],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": "草帽海贼团"
+  },
+  {
+    "PersonName": "特拉法尔加·罗",
+    "OwnedFruitNames": [
+      "手术果实"
+    ],
+    "OwnedWeaponNames": [
+      "鬼哭"
+    ],
+    "PirateGroupName": "心脏海贼团"
+  },
+  {
+    "PersonName": "乔拉可尔·密佛格",
+    "OwnedFruitNames": [],
+    "OwnedWeaponNames": [
+      "大黑刀.夜"
+    ],
+    "PirateGroupName": null
+  },
+  {
+    "PersonName": "唐吉诃德·多弗朗明哥",
+    "OwnedFruitNames": [
+      "线线果实"
+    ],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": null
+  },
+  {
+    "PersonName": "巴索罗米·熊",
+    "OwnedFruitNames": [
+      "肉球果实"
+    ],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": null
+  },
+  {
+    "PersonName": "波雅·汉库克",
+    "OwnedFruitNames": [
+      "甜甜果实"
+    ],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": "九蛇海贼团"
+  },
+  {
+    "PersonName": "沙·克洛克达尔",
+    "OwnedFruitNames": [
+      "沙沙果实"
+    ],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": null
+  },
+  {
+    "PersonName": "月光·莫利亚",
+    "OwnedFruitNames": [
+      "影影果实"
+    ],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": "莫利亚海贼团"
+  },
+  {
+    "PersonName": "巴基",
+    "OwnedFruitNames": [
+      "四分五裂果实"
+    ],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": "巴基海贼团"
+  },
+  {
+    "PersonName": "爱德华·威布尔",
+    "OwnedFruitNames": [],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": null
+  },
+  {
+    "PersonName": "爱德华·纽盖特",
+    "OwnedFruitNames": [
+      "震震果实"
+    ],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": "白胡子海贼团"
+  },
+  {
+    "PersonName": "香克斯",
+    "OwnedFruitNames": [],
+    "OwnedWeaponNames": [
+      "格里芬"
+    ],
+    "PirateGroupName": "红发海贼团"
+  },
+  {
+    "PersonName": "凯多",
+    "OwnedFruitNames": [],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": "百兽海贼团"
+  },
+  {
+    "PersonName": "马歇尔·D·蒂奇",
+    "OwnedFruitNames": [
+      "震震果实",
+      "黑暗果实"
+    ],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": null
+  },
+  {
+    "PersonName": "夏洛特·玲玲",
+    "OwnedFruitNames": [],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": "BIG·MOM海贼团"
+  },
+  {
+    "PersonName": "萨卡斯基",
+    "OwnedFruitNames": [
+      "岩浆果实"
+    ],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": null
+  },
+  {
+    "PersonName": "波鲁萨利诺",
+    "OwnedFruitNames": [
+      "闪闪果实"
+    ],
+    "OwnedWeaponNames": [
+      "天丛云剑"
+    ],
+    "PirateGroupName": null
+  },
+  {
+    "PersonName": "库赞",
+    "OwnedFruitNames": [
+      "冰冻果实"
+    ],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": null
+  },
+  {
+    "PersonName": "哥尔·d·罗杰",
+    "OwnedFruitNames": [],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": "罗杰海贼团"
+  },
+  {
+    "PersonName": "波特卡斯·D·艾斯",
+    "OwnedFruitNames": [
+      "烧烧果实"
+    ],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": "白胡子海贼团"
+  },
+  {
+    "PersonName": "蒙奇·D·卡普",
+    "OwnedFruitNames": [],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": null
+  },
+  {
+    "PersonName": "蒙其·D·多拉格",
+    "OwnedFruitNames": [],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": null
+  },
+  {
+    "PersonName": "萨博",
+    "OwnedFruitNames": [
+      "烧烧果实"
+    ],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": null
+  },
+  {
+    "PersonName": "马尔科",
+    "OwnedFruitNames": [],
+    "OwnedWeaponNames": [],
+    "PirateGroupName": "白胡子海贼团"
+  }
+]
