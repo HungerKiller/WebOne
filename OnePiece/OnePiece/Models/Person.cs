@@ -1,14 +1,17 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnePiece.Models
 {
+    [JsonObject(MemberSerialization.OptOut)]
     /// <summary>
     /// 人物
     /// </summary>
     public class Person
     {
+        [JsonIgnore]
         /// <summary>
         /// Id
         /// </summary>
@@ -74,6 +77,7 @@ namespace OnePiece.Models
         /// </summary>
         public Title Title { get; set; }
 
+        [JsonIgnore]
         [Display(Name = "Pirate Group")]
         // 知识点1：默认情况下，含有成员object PirateGroup，EF就会自动创建PirateGroupID。这里显式的创建成员int PirateGroupID，就是为了更方便的使用
         // 知识点2：WeaponPossession里，插入Id和object就可以，但是这里就会出错

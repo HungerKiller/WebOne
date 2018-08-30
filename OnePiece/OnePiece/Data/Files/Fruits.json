@@ -1,0 +1,653 @@
+[
+  {
+    "Name": "橡胶果实",
+    "Type": 2,
+    "Ability": "能让身体任何部位像橡胶一样延展有弹性",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "四分五裂果实",
+    "Type": 2,
+    "Ability": "能够将自己的身体分裂",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "滑滑果实",
+    "Type": 2,
+    "Ability": "能够让自己全身上下的皮肤表面变得滑嫩无比",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "爆炸果实",
+    "Type": 2,
+    "Ability": "身体的任何部份都可以引爆",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "轻飘飘果实",
+    "Type": 2,
+    "Ability": "可以任意改变自己的体重",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "蜡蜡果实",
+    "Type": 2,
+    "Ability": "能够制造蜡，可以用蜡造型，制造出的蜡非常坚固。",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "吞吞果实",
+    "Type": 2,
+    "Ability": "可以吃下任何东西",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "模仿果实",
+    "Type": 2,
+    "Ability": "可以变成右手触摸过的任何一个人",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "花花果实",
+    "Type": 2,
+    "Ability": "身体的任何一个部位都能在任何地方像花一般的展开",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "快斩果实",
+    "Type": 2,
+    "Ability": "可以把身体的任何一部分变成钢铁刀刃",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "荆棘果实",
+    "Type": 2,
+    "Ability": "可以让身体的任何一部分长出无数的针刺",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "槛槛果实",
+    "Type": 2,
+    "Ability": "能够从身体的任何地方创造出铁条进行禁锢",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "弹簧果实",
+    "Type": 2,
+    "Ability": "能够将身体的任何一部分变成弹簧",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "迟缓果实",
+    "Type": 2,
+    "Ability": "可以发射迟缓光子",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "门门果实",
+    "Type": 2,
+    "Ability": "可以在任何地方开门自由出入",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "泡泡果实",
+    "Type": 2,
+    "Ability": "身体可以产生泡沫，可以把别人变的圆滑",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "锈锈果实",
+    "Type": 2,
+    "Ability": "能将身体碰到的金属腐蚀并变成粉末",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "豆豆果实",
+    "Type": 2,
+    "Ability": "身体变成球形颗粒物，躲避攻击",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "车轮果实",
+    "Type": 2,
+    "Ability": "身体各部位都能变成车轮般旋转攻击",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "黄泉果实",
+    "Type": 2,
+    "Ability": "死后可以复活一次",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "影影果实",
+    "Type": 2,
+    "Ability": "拥有能够控制影子的能力",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "灵灵果实",
+    "Type": 2,
+    "Ability": "拥有随意产生出灵体的能力",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "透明果实",
+    "Type": 2,
+    "Ability": "可以让自己的身体透明化",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "肉球果实",
+    "Type": 2,
+    "Ability": "食用者会在双掌中产生像是熊掌一样的柔软“肉球”。",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "手术果实",
+    "Type": 2,
+    "Ability": "可以在自己制造出的特定空间内自由处置任何物件",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "甜甜果实",
+    "Type": 2,
+    "Ability": "对好色的人能起到石化的效果，对不好其色的人无效",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "毒毒果实",
+    "Type": 2,
+    "Ability": "身体可以制造出毒气、毒液",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "荷尔蒙果实",
+    "Type": 2,
+    "Ability": "从手指射出可以控制人体的荷尔蒙",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "剪剪果实",
+    "Type": 2,
+    "Ability": "能将双手变成巨大的剪刀，可以切开任何东西",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "震震果实",
+    "Type": 2,
+    "Ability": "能产生地震波，震动的地方包括地面以及空间，也能让部分的空间充满强大的震动力",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "钻石果实",
+    "Type": 2,
+    "Ability": "身体可以变成钻石，拥有钻石的硬度",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "洗洗果实",
+    "Type": 2,
+    "Ability": "能将人与物变成衣服洗好后晾干。",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "靶靶果实",
+    "Type": 2,
+    "Ability": "被获得此能力的人用手碰到后，就会被当成标的锁定。",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "吨压果实",
+    "Type": 2,
+    "Ability": "能够改变自身的体重来攻击",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "转转果实",
+    "Type": 2,
+    "Ability": "可以把身体的任何一部分变成螺旋桨。",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "黏黏果实",
+    "Type": 2,
+    "Ability": "可从身体的任何一处制造出浓稠状的茶色湿滑黏液",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "屏障果实",
+    "Type": 2,
+    "Ability": "能够在周围形成屏障借此抵挡任何攻击",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "缝缝果实",
+    "Type": 2,
+    "Ability": "能够产生丝线把物件毫发未伤地缝合",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "瞪瞪果实",
+    "Type": 2,
+    "Ability": "能够透视物体以及看透人心，和可以当武器的眼泪",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "夹克果实",
+    "Type": 2,
+    "Ability": "能力者变成夹克后能够附身在他人身上",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "艺术果实",
+    "Type": 2,
+    "Ability": "能使碰触到的人或物质变成艺术品",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "线线果实",
+    "Type": 2,
+    "Ability": "身体可以变出线",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "童趣果实",
+    "Type": 2,
+    "Ability": "能将所有触碰到的人变成玩具，使用者在吃下恶魔果实停止生长",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "水水果实",
+    "Type": 2,
+    "Ability": "能让自己自由来回穿越于地面或墙壁之间",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "飘扬果实",
+    "Type": 2,
+    "Ability": "可将任何触及的物体变成如同布绸般轻飘飘的型态",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "武器果实",
+    "Type": 2,
+    "Ability": "可以把身体的任何一部分变成武器。",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "石石果实",
+    "Type": 2,
+    "Ability": "能力者能够跟自身接触到的岩石进行同化",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "龟龟果实",
+    "Type": 1,
+    "Ability": "变成龟",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "静寂果实",
+    "Type": 2,
+    "Ability": "能够阻绝一定范围内或是人事物所发出的声音",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "治愈果实",
+    "Type": 2,
+    "Ability": "拥有治愈生物伤势的能力",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "坚城果实",
+    "Type": 2,
+    "Ability": "可以把自己的手下缩小收纳在身体里，释放出来会恢复原状",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "舔舔果实",
+    "Type": 2,
+    "Ability": "能够将能力者触碰的生物变成糖果",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "镜镜果实",
+    "Type": 2,
+    "Ability": "能够使用镜子相关的能力，可以穿梭于镜子之间",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "魂魂果实",
+    "Type": 2,
+    "Ability": "能力者能够随意处理人的灵魂",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "饼干果实",
+    "Type": 2,
+    "Ability": "能力者能够无限造出并操纵饼干",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "记忆果实",
+    "Type": 2,
+    "Ability": "能力者能够取出他人记忆并进行编辑",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "糯糯果实",
+    "Type": 2,
+    "Ability": "能力者能改变体质、改变体型、制造物质",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "蒸腾果实",
+    "Type": 2,
+    "Ability": "能力者能借由摩擦自身来产生神灯精灵进行战斗",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "热热果实",
+    "Type": 2,
+    "Ability": "能力者能加热自身以及碰到的物体",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "吃吃果实",
+    "Type": 2,
+    "Ability": "能力者能将任何物体变成食材",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "榨榨果实",
+    "Type": 2,
+    "Ability": "能力者能从任何物体中榨出液体，也能吸收水分使身体巨大化",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "牛牛果实·野牛形态",
+    "Type": 1,
+    "Ability": "变成野牛",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "牛牛果实·长劲鹿形态",
+    "Type": 1,
+    "Ability": "变成长劲鹿",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "人人果实",
+    "Type": 1,
+    "Ability": "变成人",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "人人果实·幻兽种·大佛形态",
+    "Type": 1,
+    "Ability": "动物系幻兽种，变成大佛",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "鸟鸟果实·隼形态",
+    "Type": 1,
+    "Ability": "变成隼",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "鼹鼠果实",
+    "Type": 1,
+    "Ability": "变成鼹鼠",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "犬犬果实·腊肠狗形态",
+    "Type": 1,
+    "Ability": "变成腊肠狗",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "犬犬果实·胡狼形态",
+    "Type": 1,
+    "Ability": "变成胡狼",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "犬犬果实·狼形态",
+    "Type": 1,
+    "Ability": "变成狼",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "犬犬果实·斑点狗形态",
+    "Type": 1,
+    "Ability": "变成斑点狗",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "马马果实",
+    "Type": 1,
+    "Ability": "变成马",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "猫猫果实·豹形态",
+    "Type": 1,
+    "Ability": "变成豹",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "象象果实",
+    "Type": 1,
+    "Ability": "变成大象",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "象象果实·古代种·猛犸象形态",
+    "Type": 1,
+    "Ability": "动物系古代种，变成猛犸象",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "蛇蛇果实·眼镜蛇形态",
+    "Type": 1,
+    "Ability": "变成眼镜蛇",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "蛇蛇果实·蟒蛇形态",
+    "Type": 1,
+    "Ability": "变成蟒蛇",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "蝾螈果实·六角螈形态",
+    "Type": 1,
+    "Ability": "变成六角螈",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "虫虫果实·独角仙形态",
+    "Type": 1,
+    "Ability": "变成独角仙",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "虫虫果实·胡蜂种形态",
+    "Type": 1,
+    "Ability": "变成胡蜂",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "瓦斯果实",
+    "Type": 0,
+    "Ability": "体质变成气体",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "蛋蛋果实",
+    "Type": 1,
+    "Ability": "动物系特殊种，身体变成鸡蛋构造，每次受到致命伤便会进化",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "烟雾果实",
+    "Type": 0,
+    "Ability": "体质变成烟雾",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "烧烧果实",
+    "Type": 0,
+    "Ability": "体质变成火焰",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "沙沙果实",
+    "Type": 0,
+    "Ability": "体质变成沙",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "响雷果实",
+    "Type": 0,
+    "Ability": "体质变成雷电",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "冰冻果实",
+    "Type": 0,
+    "Ability": "体质变成冰",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "黑暗果实",
+    "Type": 0,
+    "Ability": "体质变成黑暗",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "闪闪果实",
+    "Type": 0,
+    "Ability": "体质变成光",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "岩浆果实",
+    "Type": 0,
+    "Ability": "体质变成岩浆",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "沼泽果实",
+    "Type": 0,
+    "Ability": "体质变成沼泽",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "爆爆果实",
+    "Type": 2,
+    "Ability": "能够随心所欲引爆自己的身体，以及被自己碰到的无机物",
+    "Description": null,
+    "ImagePath": null
+  },
+  {
+    "Name": "雪雪果实",
+    "Type": 0,
+    "Ability": "体质变成雪",
+    "Description": null,
+    "ImagePath": null
+  }
+]

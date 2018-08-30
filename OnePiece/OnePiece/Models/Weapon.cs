@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnePiece.Models
 {
+    [JsonObject(MemberSerialization.OptOut)]
     /// <summary>
     /// 武器
     /// </summary>
     public class Weapon
     {
+        [JsonIgnore]
         /// <summary>
         /// Id
         /// </summary>
@@ -31,6 +34,7 @@ namespace OnePiece.Models
         /// </summary>
         public string ImagePath { get; set; }
 
+        [JsonIgnore]
         public ICollection<WeaponPossession> WeaponPossessions { get; set; }
     }
 }

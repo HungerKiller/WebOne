@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnePiece.Models
 {
+    [JsonObject(MemberSerialization.OptOut)]
     /// <summary>
     /// 果实
     /// </summary>
     public class Fruit
     {
+        [JsonIgnore]
         /// <summary>
         /// Id
         /// </summary>
@@ -44,6 +47,7 @@ namespace OnePiece.Models
         /// </summary>
         public string ImagePath { get; set; }
 
+        [JsonIgnore]
         // Person中也有这个字段，这是Person与Fruit的多对多关系。
         // 只要管理好Person里边的FruitPossessions，这里的FruitPossessions是被EF自动更新的。
         public ICollection<FruitPossession> FruitPossessions { get; set; }

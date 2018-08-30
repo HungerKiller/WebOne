@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnePiece.Models
 {
+    [JsonObject(MemberSerialization.OptOut)]
     /// <summary>
     /// 海贼团
     /// </summary>
     public class PirateGroup
     {
+        [JsonIgnore]
         /// <summary>
         /// Id
         /// </summary>
@@ -31,6 +34,7 @@ namespace OnePiece.Models
         /// </summary>
         public string ImagePath { get; set; }
 
+        [JsonIgnore]
         [Display(Name = "Persons")]
         /// <summary>
         /// 船员。多个船员
